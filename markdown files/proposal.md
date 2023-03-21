@@ -1,5 +1,5 @@
 # Capstone1 Proposal
-![OutThere Logo](OutThere%20(2).png)
+![OutThere Logo](OutThere_Logo.png)
 
 >Map? Check. Water? Check. Weather? Check. Misadventure... check??
 > 
@@ -16,18 +16,18 @@
 Adventure comes in many forms. This could look like a walk in the park, a kayak run on a local river, or canyoneering in some of the deepest canyons in the West. If you enjoy recreating in spaces with limited phone service, OutThere is for you!
 
 ### Data Usage:
-![OutThere Logo](OutThere%20(1).png)
+![OutThere Logo](database_mapping.png)
 Here is a basic outline of the different types of data OutThere will be accesssing:
 1. User Data - this model will store basic user information that will be saved to a user's account for authentication and authorization.
 2. Address Data - this model will act as an address book that users can access to more efficiently notify friends of their trips. [This will either be in the form of SMS or Email depending on the selected API I will go with]
 3. Adventure Data - this model will store trip information that can be duplicated, updated, or deleted by the user. These trips can be reused when creating an itinerary to share with friends.
 
-![OutThere Logo](OutThere%20(4).png)
+![OutThere Logo](apis.png)
 
 ### The Creative Approach
 This app will create a user friendly interface where a user can login or register an account to save their data. The user can view their profile that includes all of their past trips and their own address book. There will be CRUD functionality with the user, their trips, and their addresses.
 
-![OutThere Logo](OutThere%20(3).png)
+![OutThere Logo](file_layout.png)
 
 ### Anticipated Challenges
 - I forsee challenges with the SMS API, therfore I may go with a Gmail API or some other email platform. 
