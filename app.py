@@ -24,7 +24,23 @@ connect_db(app)
 
 
 ##########################################################################
-# User signup/login/logout
+# HOMEPAGE & WELCOME PAGE
+@app.route('/')
+def home_page():
+    """Show homepage.
+    If user is logged in, show the users they are followings' content.
+    If not logging in, show welcome page.
+    """
+
+    if g.user:
+        filtered_users = [user.id for user in g.user.following] + [g.user.id]
+        return render_template("home.html", users=filtered_users)
+
+    return render_template("welcome.html")
+
+
+##########################################################################
+# USER signup/login/logout
 @app.before_request
 def add_user_to_global():
     """If user is logged in, add to Flask Global"""
@@ -96,3 +112,66 @@ def logout():
     flash("Successfully logget out. Happy trails!", "success")
 
     return redirect("/")
+
+##########################################################################
+# USER search/show_profile
+
+
+@app.route('/users')
+def search_users():
+    """Handles search for users"""
+
+    search = request.args.get('query')
+
+    if not search:
+        users = User.query.all()
+    else:
+        users = User.query.filter(User.username.like(f"%{search}%")).all()
+
+    return render_template('users/search.html', users=users)
+
+
+##########################################################################
+# USER update/delete
+
+@app.route('/users/update', methods=["POST", "GET"])
+def update_user():
+    """Handles update profile."""
+
+    form = UserUpdateForm(obj=g.user)
+
+    if form.validate_on_submit():
+        valid_user = User.authenticate(
+            username=form.username.data, password=form.password.data)
+
+        if valid_user:
+            user = g.user
+            user.username = form.username.data
+            user.first_name = form.first_name.data
+            user.last_name = form.last_name.data
+            user.profile_img = form.profile_img.data
+            user.bio = form.bio.data
+            user.location = form.username.data
+
+            db.session.add(user)
+            db.session.commit()
+
+            return redirect(f'/users/{user.id}', user=user)
+
+    return render_template('users/update.html', form=form)
+
+
+@app.route("/user/delete", methods=["POST"])
+def delete_user():
+
+    if not g.user:
+        flash("Unauthorized access.", "danger")
+        return redirect("/")
+
+    do_logout()
+
+    db.session.delete(g.user)
+    db.session.commit()
+
+    flash(f"User: {g.user.username} has been deleted.", "success")
+    return redirect("/signup")
