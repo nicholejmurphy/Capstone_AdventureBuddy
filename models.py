@@ -10,6 +10,7 @@ db = SQLAlchemy()
 
 
 class Follows(db.Model):
+    """Tracks reltionships of users following users."""
 
     __tablename__ = "follows"
 
@@ -20,6 +21,7 @@ class Follows(db.Model):
 
 
 class User(db.Model):
+    """Represents users in system."""
 
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
@@ -82,3 +84,10 @@ class User(db.Model):
                 return user
 
         return False
+
+
+def connect_db(app):
+    """Connetcs database to app.py"""
+
+    db.app = app
+    db.init_app(app)

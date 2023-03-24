@@ -4,8 +4,8 @@ from flask import Flask, render_template, request, flash, redirect, session, g
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 
-from forms import UserAddForm, LoginForm, MessageForm, UserUpdateForm
-from models import db, connect_db, User, Message
+# from forms import UserAddForm, LoginForm, MessageForm, UserUpdateForm
+from models import db, connect_db, User
 
 CURR_USER_KEY = "curr_user"
 
@@ -21,5 +21,6 @@ app.config['SQLALCHEMY_ECHO'] = False
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "16ranchRD")
 toolbar = DebugToolbarExtension(app)
+app.app_context().push()
 
 connect_db(app)
