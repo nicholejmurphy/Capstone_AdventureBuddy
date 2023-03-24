@@ -131,6 +131,17 @@ def search_users():
     return render_template('users/search.html', users=users)
 
 
+@app.route('/users/<int:user_id>')
+def show_profile(user_id):
+    """Show user profile.
+    If logged in user is following user_id or is user_id, show adventures.
+    If not, show basic profile.
+    """
+    user = User.query.get_or_404(user_id)
+
+    return render_template('user/profile.html', user=user)
+
+
 ##########################################################################
 # USER update/delete
 
