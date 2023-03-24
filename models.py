@@ -24,6 +24,7 @@ class User(db.Model):
     """Represents users in system."""
 
     __tablename__ = "users"
+
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(30), unique=True, nullable=False)
     first_name = db.Column(db.String(30), nullable=False)
