@@ -25,7 +25,7 @@ class UserLoginForm(FlaskForm):
                              DataRequired(), Length(min=5)])
 
 
-class UpdateUserForm(FlaskForm):
+class UserUpdateForm(FlaskForm):
     """For update user information"""
 
     username = StringField('Username', validators=[
