@@ -27,7 +27,8 @@ connect_db(app)
 # HOMEPAGE & WELCOME PAGE
 @app.route('/')
 def home_page():
-    """Show homepage.
+    """
+    Show homepage.
     If user is logged in, show the users they are followings' content.
     If not logging in, show welcome page.
     """
@@ -185,10 +186,9 @@ def delete_user():
     flash(f"User: {g.user.username} has been deleted.", "success")
     return redirect("/signup")
 
+
 ##########################################################################
 # USER Follows Views
-
-
 @app.route('users/<int:user_id>/following')
 def show_following(user_id):
     """Shows all users user_id is following."""
