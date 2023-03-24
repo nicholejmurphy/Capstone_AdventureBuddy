@@ -189,7 +189,7 @@ def delete_user():
 
 ##########################################################################
 # USER Follows Views
-@app.route('users/<int:user_id>/following')
+@app.route('/users/<int:user_id>/following')
 def show_following(user_id):
     """Shows all users user_id is following."""
 
@@ -202,7 +202,7 @@ def show_following(user_id):
     return render_template('users/following.html', user=user)
 
 
-@app.route('users/<int:user_id>/followers')
+@app.route('/users/<int:user_id>/followers')
 def show_following(user_id):
     """Shows all users user_id is followed by."""
 
