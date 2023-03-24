@@ -203,7 +203,7 @@ def show_following(user_id):
 
 
 @app.route('/users/<int:user_id>/followers')
-def show_following(user_id):
+def show_followers(user_id):
     """Shows all users user_id is followed by."""
 
     if not g.user:
