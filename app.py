@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, render_template, request, flash, redirect, session, g
+from flask import Flask, render_template, request, flash, redirect, session, g, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 
@@ -113,10 +113,9 @@ def logout():
 
     return redirect("/")
 
+
 ##########################################################################
 # USER search/show_profile
-
-
 @app.route('/users')
 def search_users():
     """Handles search for users"""
@@ -144,7 +143,6 @@ def show_profile(user_id):
 
 ##########################################################################
 # USER update/delete
-
 @app.route('/users/update', methods=["POST", "GET"])
 def update_user():
     """Handles update profile."""
@@ -176,8 +174,8 @@ def update_user():
 def delete_user():
 
     if not g.user:
-        flash("Unauthorized access.", "danger")
-        return redirect("/")
+        flash("Unathorized access. You must be logged in to view.", "danger")
+        return redirect("/login")
 
     do_logout()
 
@@ -186,3 +184,62 @@ def delete_user():
 
     flash(f"User: {g.user.username} has been deleted.", "success")
     return redirect("/signup")
+
+##########################################################################
+# USER Follows Views
+
+
+@app.route('users/<int:user_id>/following')
+def show_following(user_id):
+    """Shows all users user_id is following."""
+
+    if not g.user:
+        flash("Unathorized access. You must be logged in to view.", "danger")
+        return redirect("/login")
+
+    user = User.query.get_or_404(user_id)
+
+    return render_template('users/following.html', user=user)
+
+
+@app.route('users/<int:user_id>/followers')
+def show_following(user_id):
+    """Shows all users user_id is followed by."""
+
+    if not g.user:
+        flash("Unathorized access. You must be logged in to view.", "danger")
+        return redirect("/login")
+
+    user = User.query.get_or_404(user_id)
+
+    return render_template('users/followers.html', user=user)
+
+
+@app.route('/users/follow/<int:user_id>', methods=["POST"])
+def add_follow(user_id):
+    """Add user_id to user's following list."""
+
+    if not g.user:
+        flash("Unathorized access. You must be logged in to view.", "danger")
+        return redirect("/login")
+
+    followed_user = User.query.get_or_404(user_id)
+    g.user.following.append(followed_user)
+    db.session.commit()
+
+    return jsonify(True)
+
+
+@app.route('/users/unfollow/<int:user_id>', methods=["POST"])
+def remove_follow(user_id):
+    """Remove user_id from user's following list."""
+
+    if not g.user:
+        flash("Unathorized access. You must be logged in to view.", "danger")
+        return redirect("/login")
+
+    followed_user = User.query.get_or_404(user_id)
+    g.user.following.remove(followed_user)
+    db.session.commit()
+
+    return jsonify(True)
