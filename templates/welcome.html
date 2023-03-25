@@ -1,5 +1,28 @@
 {% extends 'base.html'%} {% block content %}
-<div id="welcome-header" class="container">
-  <img src="/images/welcome-header.jpg" alt="slot canyon" />
+<div class="jumbotron jumbotron-fluid bg-dark text-center">
+  <h1 class="display-1 text-success">
+    <i class="fa-solid fa-location-dot"></i> OutThere
+  </h1>
+  <p class="lead text-light mb-5">
+    Log your adventures. | Share with Friends. | Stay found.
+  </p>
+  <!-- <hr class="m-4 bg-light" />
+  <p class="text-secondary">
+    Login to build your next adventure. Not a user? Signup below!
+  </p> -->
+  <a
+    action="/login"
+    class="btn btn-success btn-lg d-inline px-5 my-2 mr-2 my-sm-0"
+    role="button"
+  >
+    Login</a
+  >
+  <a
+    action="/signup"
+    class="btn btn-primary btn-lg d-inline px-5 my-2 my-sm-0"
+    role="button"
+  >
+    SignUp
+  </a>
 </div>
 {% endblock %}
