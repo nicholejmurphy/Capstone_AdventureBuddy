@@ -1,11 +1,10 @@
 {% extends 'base.html'%} {% block content %}
 
 <div class="container w-50 mx-auto mt-5 p-4 rounded shadow">
-  <h1 class="display-4">Searched users for "{{search}}"</h1>
+  <p class="lead">Searched users for "{{search}}"</p>
   <hr />
 
-  {% for user in users %}
-
+  {% for user in users %} {% if user.id != g.user.id %}
   <div class="mb-4 row">
     <div class="col-2">
       <img
@@ -24,10 +23,13 @@
       <p class="mb-1">{{user.location}}</p>
     </div>
     <div class="col-2 d-flex align-items-center">
-      <button id="follow-btn" class="btn btn-outline-primary">follow</button>
+      {% if g.user.is_following(user) %}
+      <button id="follow-btn" class="btn btn-outline-primary">unfollow</button>
+      {% else %}
+      <button id="follow-btn" class="btn btn-primary">follow</button>
+      {% endif %}
     </div>
   </div>
-
-  {% endfor %}
+  {% endif %} {% endfor %}
 </div>
 {% endblock %}
