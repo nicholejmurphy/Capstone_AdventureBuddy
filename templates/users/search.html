@@ -1,0 +1,21 @@
+<div class="container w-50 my-4 p-4 ml-5 d-inline rounded shadow">
+  <h1>Adventures</h1>
+  <hr />
+  <!-- **************************************************************** -->
+  <!-- Maybe change this into a card once we have adventures to show... -->
+  {% for user in users %}
+  <div class="media mb-2">
+    <img
+      src="{{user.profile_img}}"
+      class="align-self-start mr-3 d-inline"
+      alt="profile picture."
+      style="height: 80px; width: 80px"
+    />
+    <div class="media-body">
+      <h5 class="mt-0">{{user.first_name}} {{user.last_name}}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">@{{user.username}}</h6>
+      <p class="mb-1">{{user.location}}</p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
