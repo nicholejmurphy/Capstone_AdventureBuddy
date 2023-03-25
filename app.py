@@ -34,8 +34,9 @@ def home_page():
     """
 
     if g.user:
-        filtered_users = [user.id for user in g.user.following] + [g.user.id]
-        return render_template("home.html", users=filtered_users)
+        filtered_ids = [user.id for user in g.user.following] + [g.user.id]
+        users = User.query.filter(User.id.in_(filtered_ids)).all()
+        return render_template("home.html", users=users)
 
     return render_template("welcome.html")
 

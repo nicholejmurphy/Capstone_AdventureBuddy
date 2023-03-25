@@ -8,6 +8,8 @@ from flask_sqlalchemy import SQLAlchemy
 bcrypt = Bcrypt()
 db = SQLAlchemy()
 
+DEFAULT_PROFILE_IMG = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/512px-Windows_10_Default_Profile_Picture.svg.png?20221210150350"
+
 
 class Follows(db.Model):
     """Tracks reltionships of users following users."""
@@ -30,15 +32,15 @@ class User(db.Model):
     first_name = db.Column(db.String(30), nullable=False)
     last_name = db.Column(db.String(30), nullable=False)
     password = db.Column(db.Text, nullable=False)
-    profile_img = db.Column(db.Text, default='images/default_profile_img.png')
-    bio = db.Column(db.Text)
-    location = db.Column(db.Text)
+    profile_img = db.Column(db.Text, default=DEFAULT_PROFILE_IMG)
+    bio = db.Column(db.Text, default="Here for an adventure!")
+    location = db.Column(db.Text, default="OutThere somewhere...")
 
     # User Relationships
     following = db.relationship("User", secondary="follows", primaryjoin=(
         Follows.user_following_id == id), secondaryjoin=(Follows.user_being_followed_id == id))
     followers = db.relationship("User", secondary="follows", primaryjoin=(
-        Follows.user_being_followed_id == id), secondaryjoin=(Follows.user_following_id == id))
+        Follows.user_being_followed_id == id), secondaryjoin=(Follows.user_following_id == id), overlaps="following")
 
     # User Instance Methods
     def _repr_(self):
@@ -62,12 +64,12 @@ class User(db.Model):
 
     # User Classmethods
     @classmethod
-    def signup(cls, username, first_name, last_name, password, profile_img):
+    def signup(cls, username, first_name, last_name, password):
         """Creates a hashed password and adds user to database."""
 
         hashed_pwd = bcrypt.generate_password_hash(password).decode('UTF-8')
         user = User(username=username, first_name=first_name,
-                    last_name=last_name, password=password, profile_img=profile_img)
+                    last_name=last_name, password=hashed_pwd)
 
         db.session.add(user)
 
