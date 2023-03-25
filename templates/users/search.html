@@ -1,6 +1,6 @@
 {% extends 'base.html'%} {% block content %}
 
-<div class="container w-50 mx-auto mt-5 p-4 rounded shadow">
+<div id="search-results" class="container w-50 mx-auto mt-5 p-4 rounded shadow">
   <div class="container my-2">
     {% for category, message in get_flashed_messages(with_categories=True) %}
     <div class="alert alert-{{category}}" role="alert">{{ message }}</div>
@@ -29,9 +29,17 @@
     </div>
     <div class="col-2 d-flex align-items-center">
       {% if g.user.is_following(user) %}
-      <button id="follow-btn" class="btn btn-outline-primary">unfollow</button>
+      <button
+        id="follow-btn"
+        data-id="{{g.user.id}}"
+        class="btn btn-outline-primary follow-btn"
+      >
+        unfollow
+      </button>
       {% else %}
-      <button id="follow-btn" class="btn btn-primary">follow</button>
+      <button data-id="{{g.user.id}}" class="btn btn-primary follow-btn">
+        follow
+      </button>
       {% endif %}
     </div>
   </div>
