@@ -18,6 +18,11 @@
     </div>
   </div>
   <div class="container w-50 my-4 p-4 ml-5 d-inline rounded shadow">
+    <div class="container my-2">
+      {% for category, message in get_flashed_messages(with_categories=True) %}
+      <div class="alert alert-{{category}}" role="alert">{{ message }}</div>
+      {% endfor %}
+    </div>
     <h1>Adventures</h1>
     <hr />
     <!-- **************************************************************** -->
