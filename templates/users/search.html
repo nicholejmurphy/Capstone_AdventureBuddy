@@ -5,23 +5,29 @@
   <hr />
 
   {% for user in users %}
-  <div class="d-block">
-    <div class="media mb-2">
+
+  <div class="mb-4 row">
+    <div class="col-2">
       <img
         src="{{user.profile_img}}"
-        class="align-self-start mr-3"
+        class="align-self-start"
         alt="profile picture."
         style="height: 80px; width: 80px"
       />
-      <div class="media-body">
-        <h5 class="mb-0">{{user.first_name}} {{user.last_name}}</h5>
-        <a href="/users/{{user.id}}" class="card-subtitle text-success"
-          >@{{user.username}}</a
-        >
-        <p class="mb-1">{{user.location}}</p>
-      </div>
     </div>
-    {% endfor %}
+    <div class="col">
+      <h5 class="mb-0">{{user.first_name}} {{user.last_name}}</h5>
+
+      <a href="/users/{{user.id}}" class="card-subtitle text-success"
+        >@{{user.username}}</a
+      >
+      <p class="mb-1">{{user.location}}</p>
+    </div>
+    <div class="col-2 d-flex align-items-center">
+      <button id="follow-btn" class="btn btn-outline-primary">follow</button>
+    </div>
   </div>
+
+  {% endfor %}
 </div>
 {% endblock %}

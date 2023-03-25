@@ -10,11 +10,11 @@
       />
     </div>
     <div class="media-body col">
-      <h5 class="mb-0">{{user.first_name}} {{user.last_name}}</h5>
-      <a href="/users/{{user.id}}" class="card-subtitle text-success"
-        >@{{user.username}}</a
+      <h5 class="mb-0">{{g.user.first_name}} {{g.user.last_name}}</h5>
+      <a href="/users/{{g.user.id}}" class="card-subtitle text-success"
+        >@{{g.user.username}}</a
       >
-      <p class="mb-1">{{user.location}}</p>
+      <p class="mb-1">{{g.user.location}}</p>
     </div>
   </div>
   <div class="container w-50 my-4 p-4 ml-5 d-inline rounded shadow">
