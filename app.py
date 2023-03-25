@@ -140,7 +140,7 @@ def show_profile(user_id):
     """
     user = User.query.get_or_404(user_id)
 
-    return render_template('user/profile.html', user=user)
+    return render_template('users/profile.html', user=user)
 
 
 ##########################################################################

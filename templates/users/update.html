@@ -1,0 +1,26 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="container rounded shadow bg-dark p-5 my-5 w-50">
+  <h3 class="display-4 text-light text-center">SignUp</h3>
+  <hr class="bg-light mb-4" />
+  <div class="container my-2">
+    {% for category, message in get_flashed_messages(with_categories=True) %}
+    <div class="alert alert-{{category}}" role="alert">{{ message }}</div>
+    {% endfor %}
+  </div>
+  <div class="container rounded shadow bg-light p-4 w-50">
+    <form method="POST">
+      {{form.hidden_tag()}} {% for field in form if field.widget.input_type !=
+      "hidden" %}
+      <div class="form-group">
+        <p>
+          {{field.label}} {{field(class_="form-control")}} {% for error in
+          field.erros %} {{error(class_="invalid-feedback")}} {% endfor %}
+        </p>
+      </div>
+      {% endfor %}
+      <button class="btn btn-primary" type="submit">SignUp</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
