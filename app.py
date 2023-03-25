@@ -83,7 +83,7 @@ def signup():
         do_login(user)
         return redirect('/')
 
-    return render_template('user/signup.html', form=form)
+    return render_template('users/signup.html', form=form)
 
 
 @app.route('/login', methods=["GET", "POST"])
@@ -102,7 +102,7 @@ def login():
 
         flash("Invalid username or password.", "danger")
 
-    return render_template("templates/users/login.html", form=form)
+    return render_template("users/login.html", form=form)
 
 
 @app.route('/logout')
@@ -121,7 +121,7 @@ def logout():
 def search_users():
     """Handles search for users"""
 
-    search = request.args.get('query')
+    search = request.args.get('q')
 
     if not search:
         users = User.query.all()

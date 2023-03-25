@@ -20,9 +20,9 @@ class UserLoginForm(FlaskForm):
     """For user login."""
 
     username = StringField('Username', validators=[
-                           DataRequired(), Length(max=30)])
+                           DataRequired(message="Username required.")])
     password = PasswordField('Password', validators=[
-                             DataRequired(), Length(min=5)])
+                             DataRequired(message="Username required.")])
 
 
 class UserUpdateForm(FlaskForm):
