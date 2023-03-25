@@ -153,7 +153,13 @@ def update_user():
 
     if form.validate_on_submit():
         valid_user = User.authenticate(
-            username=form.username.data, password=form.password.data)
+            username=g.user.username, password=form.password.data)
+
+        # Check if username has already been taken.
+        if form.username.data != g.user.username and User.query.filter_by(username=form.username.data).first() != None:
+
+            flash("Username is already taken.", "danger")
+            return render_template('users/update.html', form=form)
 
         if valid_user:
             user = g.user
@@ -162,12 +168,12 @@ def update_user():
             user.last_name = form.last_name.data
             user.profile_img = form.profile_img.data
             user.bio = form.bio.data
-            user.location = form.username.data
+            user.location = form.location.data
 
             db.session.add(user)
             db.session.commit()
-
-            return redirect(f'/users/{user.id}', user=user)
+            flash("Profile successfully updated!", "success")
+            return redirect(f'/users/{user.id}')
 
     return render_template('users/update.html', form=form)
 

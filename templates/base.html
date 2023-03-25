@@ -52,12 +52,24 @@
           >
             Search
           </button>
-          <a
-            href="/users/{{g.user.id}}"
-            class="navbar-nav text-success py-1 my-2 mr-2 ml-3 my-sm-0"
-          >
-            {{g.user.username}}
-          </a>
+          <div class="dropdown">
+            <button
+              class="btn btn-sm btn-success dropdown-toggle py-1"
+              type="button"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              {{g.user.username}}
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="/users/{{g.user.id}}"
+                >View profile</a
+              >
+              <a class="dropdown-item" href="/users/update">Update profile</a>
+            </div>
+          </div>
           <p class="navbar-text text-success my-2 ml-2 p-0">|</p>
           <a
             href="/logout"
