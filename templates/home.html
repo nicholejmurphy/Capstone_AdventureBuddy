@@ -10,9 +10,11 @@
       />
     </div>
     <div class="media-body col">
-      <h5 class="mt-0">{{g.user.first_name}} {{g.user.last_name}}</h5>
-      <h6 class="card-subtitle mb-2 text-muted">@{{g.user.username}}</h6>
-      <p class="mb-1">{{g.user.location}}</p>
+      <h5 class="mb-0">{{user.first_name}} {{user.last_name}}</h5>
+      <a href="/users/{{user.id}}" class="card-subtitle text-success"
+        >@{{user.username}}</a
+      >
+      <p class="mb-1">{{user.location}}</p>
     </div>
   </div>
   <div class="container w-50 my-4 p-4 ml-5 d-inline rounded shadow">
@@ -29,8 +31,10 @@
         style="height: 80px; width: 80px"
       />
       <div class="media-body">
-        <h5 class="mt-0">{{user.first_name}} {{user.last_name}}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">@{{user.username}}</h6>
+        <h5 class="mb-0">{{user.first_name}} {{user.last_name}}</h5>
+        <a href="/users/{{user.id}}" class="card-subtitle text-success"
+          >@{{user.username}}</a
+        >
         <p class="mb-1">{{user.location}}</p>
       </div>
     </div>

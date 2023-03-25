@@ -129,7 +129,7 @@ def search_users():
     else:
         users = User.query.filter(User.username.like(f"%{search}%")).all()
 
-    return render_template('users/search.html', users=users)
+    return render_template('users/search.html', users=users, search=search)
 
 
 @app.route('/users/<int:user_id>')
