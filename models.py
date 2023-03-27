@@ -37,10 +37,10 @@ class User(db.Model):
     location = db.Column(db.Text, default="OutThere somewhere...")
 
     # User Relationships
-    following = db.relationship("User", secondary="follows", primaryjoin=(
-        Follows.user_following_id == id), secondaryjoin=(Follows.user_being_followed_id == id))
     followers = db.relationship("User", secondary="follows", primaryjoin=(
-        Follows.user_being_followed_id == id), secondaryjoin=(Follows.user_following_id == id), overlaps="following")
+        Follows.user_following_id == id), secondaryjoin=(Follows.user_being_followed_id == id))
+    following = db.relationship("User", secondary="follows", primaryjoin=(
+        Follows.user_being_followed_id == id), secondaryjoin=(Follows.user_following_id == id), overlaps="followers")
 
     # User Instance Methods
     def _repr_(self):
@@ -82,7 +82,10 @@ class User(db.Model):
         user = cls.query.filter_by(username=username).first()
 
         if user:
+            import pdb
+            pdb.set_trace()
             authorized = bcrypt.check_password_hash(user.password, password)
+
             if authorized:
                 return user
 

@@ -27,17 +27,17 @@
       >
       <p class="mb-1">{{user.location}}</p>
     </div>
-    <div class="col-2 d-flex align-items-center">
+    <div class="col-2 d-flex align-items-center mr-3">
       {% if g.user.is_following(user) %}
       <button
         id="follow-btn"
         data-id="{{user.id}}"
-        class="btn btn-outline-primary follow-btn"
+        class="btn btn-outline-primary follow-btn unfollow"
       >
         unfollow
       </button>
       {% else %}
-      <button data-id="{{user.id}}" class="btn btn-primary follow-btn">
+      <button data-id="{{user.id}}" class="btn btn-primary follow-btn follow">
         follow
       </button>
       {% endif %}

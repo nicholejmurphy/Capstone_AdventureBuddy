@@ -111,7 +111,7 @@ def logout():
     """Handles user logout."""
 
     do_logout()
-    flash("Successfully logget out. Happy trails!", "success")
+    flash("Successfully logged out. Happy trails!", "success")
 
     return redirect("/")
 
