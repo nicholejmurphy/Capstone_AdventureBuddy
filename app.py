@@ -234,7 +234,7 @@ def add_follow(user_id):
     g.user.following.append(followed_user)
     db.session.commit()
 
-    return jsonify(True)
+    return jsonify(complete=True)
 
 
 @app.route('/users/unfollow/<int:user_id>', methods=["POST"])
@@ -249,4 +249,4 @@ def remove_follow(user_id):
     g.user.following.remove(followed_user)
     db.session.commit()
 
-    return jsonify(True)
+    return jsonify(complete=True)
