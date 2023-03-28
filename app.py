@@ -5,7 +5,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 
 from forms import UserSignUpForm, UserLoginForm, UserUpdateForm
-from models import db, connect_db, User
+from models import db, connect_db, User, Adventure, Waypoint, Address, Kudos
 
 CURR_USER_ID = "curr_user"
 
@@ -35,8 +35,9 @@ def home_page():
 
     if g.user:
         filtered_ids = [user.id for user in g.user.following] + [g.user.id]
-        users = User.query.filter(User.id.in_(filtered_ids)).all()
-        return render_template("home.html", users=users)
+        advs = Adventure.query.filter(
+            Adventure.user_id.in_(filtered_ids)).order_by(Adventure.timestamp.desc()).all()
+        return render_template("home.html", advs=advs)
 
     return render_template("welcome.html")
 
