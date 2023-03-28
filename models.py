@@ -129,8 +129,8 @@ class Waypoint(db.Model):
         db.Integer,
         primary_key=True,
     )
-    lat = db.Column(db.String, nullable=False)
-    long = db.Column(db.String, nullable=False)
+    lat = db.Column(db.Float, nullable=False)
+    long = db.Column(db.Float, nullable=False)
     color = db.Column(db.String, nullable=False, default="red")
 
 

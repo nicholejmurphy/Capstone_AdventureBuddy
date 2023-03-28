@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, PasswordField, DateTimeField
+from wtforms import StringField, TextAreaField, PasswordField, DateTimeField, DecimalField, SelectField
 from wtforms.validators import DataRequired, Length
 
 
@@ -55,3 +55,14 @@ class AdventureForm(FlaskForm):
         "Exprected Return Time", format='%m-%d-%Y %H:%M', validators=[DataRequired()])
 
     notes = TextAreaField("Notes")
+
+
+class WaypointForm(FlaskForm):
+    """Form for creating and updating waypoints."""
+
+    lat = DecimalField("Latitude", validators=[
+                       DataRequired()], places=8, rounding=None)
+    long = DecimalField("Longitude", validators=[
+                        DataRequired()], places=8, rounding=None)
+    color = SelectField("Waypoint Color", choices=[
+                        "red", "orange", "yellow", "green", "blue", "purple", "pink", "black", "brown"])
