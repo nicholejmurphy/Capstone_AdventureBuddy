@@ -92,6 +92,58 @@ class User(db.Model):
         return False
 
 
+class Adventure(db.Model):
+    """An adventure from a user."""
+
+    __tablename__ = 'adventures'
+
+    id = db.Column(
+        db.Integer,
+        primary_key=True,
+    )
+
+    title = db.Column(
+        db.String(140),
+        nullable=False,
+    )
+
+    timestamp = db.Column(
+        db.DateTime,
+        nullable=False,
+        default=datetime.utcnow(),
+    )
+
+    activity = db.Column(db.Text, nullable=False)
+
+    departure_datetime = db.Column(db.DateTime, nullable=False)
+
+    return_datetime = db.Column(db.DateTime, nullable=False)
+
+    notes = db.Column(db.Text)
+
+    user_id = db.Column(
+        db.Integer,
+        db.ForeignKey('users.id', ondelete='CASCADE'),
+        nullable=False,
+    )
+
+    # Adventure Relationships
+    user = db.relationship('User')
+    # Add kudos
+    # Add Waypoints
+
+
+class Kudos(db.Model):
+    """Kudos between Users and Adventures"""
+
+    __tablename__ = "kudos"
+
+    adventure_id = db.Column(db.Integer, db.ForeignKey(
+        'adventures.id', ondelete='cascade'), primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey(
+        'users.id', ondelete='cascade'), primary_key=True)
+
+
 def connect_db(app):
     """Connetcs database to app.py"""
 
