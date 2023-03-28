@@ -49,9 +49,9 @@ class AdventureForm(FlaskForm):
     activity = StringField("Activity Type", validators=[
                            DataRequired(), Length(max=30)])
     departure_datetime = DateTimeField(
-        "Expected Departure Time", validators=[DataRequired()])
+        "Expected Departure Time",  format='%m-%d-%Y %H:%M', validators=[DataRequired()])
 
     return_datetime = DateTimeField(
-        "Exprected Return Time", validators=[DataRequired()])
+        "Exprected Return Time", format='%m-%d-%Y %H:%M', validators=[DataRequired()])
 
     notes = TextAreaField("Notes")
