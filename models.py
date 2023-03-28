@@ -108,13 +108,14 @@ class Adventure(db.Model):
     activity = db.Column(db.Text, nullable=False)
     departure_datetime = db.Column(db.DateTime, nullable=False)
     return_datetime = db.Column(db.DateTime, nullable=False)
-    notes = db.Column(db.Text)
+    notes = db.Column(db.Text, default="No notes yet.")
     user_id = db.Column(
         db.Integer,
         db.ForeignKey('users.id', ondelete='CASCADE'),
         nullable=False,
     )
     header_img_url = db.Column(db.Text, default=DEFAULT_ADV_HEADER)
+
     # Adventure Relationships
     kudos = db.relationship('Kudos', overlaps="kudos")
     waypoints = db.relationship(

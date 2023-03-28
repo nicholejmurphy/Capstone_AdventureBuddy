@@ -4,7 +4,7 @@
     <div class="col-3 pl-0 mr-1">
       <img
         src="{{g.user.profile_img}}"
-        class="align-self-start mr-3 d-inline"
+        class="align-self-start rounded-circle mr-3 d-inline"
         alt="profile picture."
         style="height: 80px; width: 80px"
       />
@@ -25,36 +25,83 @@
     </div>
     <h1>Adventures</h1>
     <hr />
-    <!-- **************************************************************** -->
-    <!-- Maybe change this into a card once we have adventures to show... -->
+
     {% for adv in advs %}
-    <div class="card my-2 w-75">
-      <h5 class="card-header">
-        {{adv.title}} <a href="users/{{adv.user_id}}"></a>@{{adv.user.username}}
-      </h5>
-      <div style="height: 20rem">
+    <div class="card my-2 w-75 shadow mx-auto mb-3">
+      <div style="height: 15rem">
         <img
           src="{{adv.header_img_url}}"
           class="card-img-top"
           alt="Photo of activity."
-          style="object-fit: cover; height: 20rem"
+          style="object-fit: cover; height: 15rem"
         />
       </div>
-      <div class="card-body">
-        <p class="card-text">{{adv.timestamp.strftime('%B, %d %Y')}}</p>
+      <div class="d-flex row">
+        <div class="col-2 align-self-center">
+          <img
+            src="{{adv.user.profile_img}}"
+            class="card-img-top rounded-circle ml-3 my-2"
+            alt="Photo of user."
+            style="object-fit: cover; height: 60px; width: 60px"
+          />
+        </div>
+        <div class="col align-self-center">
+          <h5 class="card-body pb-0 py-0 mb-0">
+            <a class="text-success" href="users/{{adv.user_id}}"
+              >@{{adv.user.username}}</a
+            >
+          </h5>
+          <p class="text-muted my-0 ml-4">
+            {{adv.timestamp.strftime('%B, %d %Y')}}
+          </p>
+        </div>
+        <div class="col-2 align-self-center">
+          <button
+            class="btn btn-sm btn-outline-success rounded-circle mr-3 ml-0"
+          >
+            <i class="fa-solid fa-thumbs-up"></i>
+          </button>
+        </div>
       </div>
+
       <ul class="list-group list-group-flush">
-        <li class="list-group-item">{{adv.location}}</li>
-        <li class="list-group-item">{{adv.departure_datetime}}</li>
-        <li class="list-group-item">{{adv.return_datetime}}</li>
-        <li class="list-group-item">{{adv.activity}}</li>
+        <li class="list-group-item">
+          <div class="row text-center">
+            <div class="col-4">
+              <small>
+                <i
+                  class="fa-sharp fa-solid fa-compass text-danger mr-1 ml-2"
+                ></i>
+                {{adv.activity}}</small
+              >
+            </div>
+            <div class="col-4">
+              <small>
+                <i class="fa-solid fa-location-dot text-danger mr-1"></i>
+                {{adv.location}}</small
+              >
+            </div>
+
+            <div class="col-4">
+              <small>
+                <i class="fa-solid fa-calendar-days text-danger mr-1"></i>
+                {{adv.departure_datetime.strftime('%B, %d %Y')}}</small
+              >
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <small>Notes:</small>
+          <p>{{adv.notes}}</p>
+        </li>
+        <li class="list-group-item">
+          <a
+            href="/adventures/{{adv.id}}"
+            class="btn btn-block btn-sm btn-outline-primary"
+            >Check it out!</a
+          >
+        </li>
       </ul>
-      <div class="card-body">
-        <a href="/adventures/{{adv.id}}" class="btn btn-sm btn-primary"
-          >Check it out!</a
-        >
-        <button class="btn btn-sm btn-success">Give Kudos</button>
-      </div>
     </div>
     {% endfor %}
   </div>
