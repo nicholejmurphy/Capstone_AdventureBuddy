@@ -37,6 +37,8 @@ class User(db.Model):
     location = db.Column(db.Text, default="OutThere somewhere...")
 
     # User Relationships
+    adventures = db.relationship("Adventure", backref="user")
+    kudos = db.relationship("Adventure", secondary="kudos")
     followers = db.relationship("User", secondary="follows", primaryjoin=(
         Follows.user_following_id == id), secondaryjoin=(Follows.user_being_followed_id == id))
     following = db.relationship("User", secondary="follows", primaryjoin=(
@@ -45,19 +47,16 @@ class User(db.Model):
     # User Instance Methods
     def _repr_(self):
         """Makes representation of user in returns readable."""
-
         return f"<User #{self.id}: {self.username}"
 
     def is_followed_by(self, other_user):
         """If user is followed by other_user, return True, else - return False."""
-
         found_follower = [
             user for user in self.followers if user == other_user]
         return len(found_follower) == 1
 
     def is_following(self, other_user):
         """If user is follwoing other_user, return True - else, return False."""
-
         found_in_following = [
             user for user in self.following if user == other_user]
         return len(found_in_following) == 1
@@ -66,11 +65,9 @@ class User(db.Model):
     @classmethod
     def signup(cls, username, first_name, last_name, password):
         """Creates a hashed password and adds user to database."""
-
         hashed_pwd = bcrypt.generate_password_hash(password).decode('UTF-8')
         user = User(username=username, first_name=first_name,
                     last_name=last_name, password=hashed_pwd)
-
         db.session.add(user)
 
         return user
@@ -78,14 +75,11 @@ class User(db.Model):
     @classmethod
     def authenticate(cls, username, password):
         """If user is found, returns user - else, returns False."""
-
         user = cls.query.filter_by(username=username).first()
-
         if user:
             import pdb
             pdb.set_trace()
             authorized = bcrypt.check_password_hash(user.password, password)
-
             if authorized:
                 return user
 
@@ -101,26 +95,19 @@ class Adventure(db.Model):
         db.Integer,
         primary_key=True,
     )
-
     title = db.Column(
-        db.String(140),
+        db.String(100),
         nullable=False,
     )
-
     timestamp = db.Column(
         db.DateTime,
         nullable=False,
         default=datetime.utcnow(),
     )
-
     activity = db.Column(db.Text, nullable=False)
-
     departure_datetime = db.Column(db.DateTime, nullable=False)
-
     return_datetime = db.Column(db.DateTime, nullable=False)
-
     notes = db.Column(db.Text)
-
     user_id = db.Column(
         db.Integer,
         db.ForeignKey('users.id', ondelete='CASCADE'),
@@ -128,9 +115,34 @@ class Adventure(db.Model):
     )
 
     # Adventure Relationships
-    user = db.relationship('User')
-    # Add kudos
-    # Add Waypoints
+    kudos = db.relationship('Kudos')
+    waypoints = db.relationship(
+        "Waypoint", secondary="adventures_waypoints", backref="adventures")
+
+
+class Waypoint(db.Model):
+    """Waypoints associated with an adventure."""
+
+    __tablename__ = "waypoints"
+
+    id = db.Column(
+        db.Integer,
+        primary_key=True,
+    )
+    lat = db.Column(db.String, nullable=False)
+    long = db.Column(db.String, nullable=False)
+    color = db.Column(db.String, nullable=False, default="red")
+
+
+class AdventuresWaypoints(db.Model):
+    """A collection of relationships between adventures and waypoints."""
+
+    __tablename__ = "adventures_waypoints"
+
+    adventure_id = db.Column(db.Integer, db.ForeignKey(
+        'adventures.id', ondelete='cascade'), primary_key=True)
+    waypoint_id = db.Column(db.Integer, db.ForeignKey(
+        'waypoints.id', ondelete='cascade'), primary_key=True)
 
 
 class Kudos(db.Model):
@@ -140,7 +152,7 @@ class Kudos(db.Model):
 
     adventure_id = db.Column(db.Integer, db.ForeignKey(
         'adventures.id', ondelete='cascade'), primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey(
+    kudos_from_user_id = db.Column(db.Integer, db.ForeignKey(
         'users.id', ondelete='cascade'), primary_key=True)
 
 
