@@ -56,7 +56,7 @@ class AdventureForm(FlaskForm):
         "Exprected Return Time", format='%m-%d-%Y %H:%M', validators=[DataRequired()])
 
     notes = TextAreaField("Notes")
-
+    header_img_url = StringField("Image URL")
 
 class WaypointForm(FlaskForm):
     """Form for creating and updating waypoints."""

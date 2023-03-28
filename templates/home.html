@@ -1,31 +1,61 @@
 {% extends 'base.html'%} {% block content %}
 <div class="d-flex">
-  <div class="media w-25 py-4 pr-4 pl-3 my-4 ml-4 rounded shadow row">
-    <div class="col-3 pl-0 mr-1">
-      <img
-        src="{{g.user.profile_img}}"
-        class="align-self-start rounded-circle mr-3 d-inline"
-        alt="profile picture."
-        style="height: 80px; width: 80px"
-      />
+  <div class="container w-25 p-4 my-4 mx-4 rounded shadow">
+    <div class="row">
+      <div class="media pl-3">
+        <div class="col-3 pl-0 mr-1">
+          <img
+            src="{{g.user.profile_img}}"
+            class="align-self-start mr-3 d-inline rounded-circle"
+            alt="profile picture."
+            style="height: 80px; width: 80px"
+          />
+        </div>
+        <div class="media-body col">
+          <h5 class="mb-0">{{g.user.first_name}} {{g.user.last_name}}</h5>
+          <a href="/g.users/{{g.user.id}}" class="card-subtitle text-success"
+            >@{{g.user.username}}</a
+          >
+          <p class="mb-1">{{g.user.location}}</p>
+        </div>
+      </div>
     </div>
-    <div class="media-body col">
-      <h5 class="mb-0">{{g.user.first_name}} {{g.user.last_name}}</h5>
-      <a href="/users/{{g.user.id}}" class="card-subtitle text-success"
-        >@{{g.user.username}}</a
-      >
-      <p class="mb-1">{{g.user.location}}</p>
+    <hr />
+    <div class="container px-0">
+      <div class="container row text-center px-0 mt-3 mx-0">
+        <div class="col-4 text-center">
+          <a class="h4 text-success" href="g.users/{{g.user.id}}/following"
+            >{{g.user.following | length}}</a
+          >
+        </div>
+        <div class="col-4 text-center">
+          <a class="h4 text-success" href="g.users/{{g.user.id}}/followers"
+            >{{g.user.followers | length}}</a
+          >
+        </div>
+        <div class="col-4 text-center">
+          <a class="h4 text-success" href="adventures/{{g.user.id}}"
+            >{{g.user.adventures | length}}</a
+          >
+        </div>
+      </div>
+      <div class="container row d-flex text-center mx-0 px-0">
+        <div class="col-4 text-secondary"><small>following</small></div>
+        <div class="col-4 text-secondary"><small>followers</small></div>
+        <div class="col-4 text-secondary"><small>adventures</small></div>
+      </div>
     </div>
   </div>
+
+  <!-- List of Adventures -->
   <div class="container w-50 my-4 p-4 ml-5 d-inline rounded shadow">
     <div class="container my-2">
       {% for category, message in get_flashed_messages(with_categories=True) %}
       <div class="alert alert-{{category}}" role="alert">{{ message }}</div>
       {% endfor %}
     </div>
-    <h1>Adventures</h1>
+    <h1>Adventure Feed</h1>
     <hr />
-
     {% for adv in advs %}
     <div class="card my-2 w-75 shadow mx-auto mb-3">
       <div style="height: 15rem">
