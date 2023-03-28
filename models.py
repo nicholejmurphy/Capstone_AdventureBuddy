@@ -115,7 +115,7 @@ class Adventure(db.Model):
     )
 
     # Adventure Relationships
-    kudos = db.relationship('Kudos')
+    kudos = db.relationship('Kudos', overlaps="kudos")
     waypoints = db.relationship(
         "Waypoint", secondary="adventures_waypoints", backref="adventures")
 
