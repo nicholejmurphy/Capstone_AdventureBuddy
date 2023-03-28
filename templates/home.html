@@ -28,24 +28,32 @@
     <!-- **************************************************************** -->
     <!-- Maybe change this into a card once we have adventures to show... -->
     {% for adv in advs %}
-    <div class="media mb-3">
-      <img
-        src="{{adv.user.profile_img}}"
-        class="align-self-start mr-3 d-inline"
-        alt="profile picture."
-        style="height: 80px; width: 80px"
-      />
-      <div class="media-body">
-        <h5 class="mb-0">{{adv.user.username}} {{adv.user.last_name}}</h5>
-        <a href="/users/{{adv.user.id}}" class="card-subtitle text-success"
-          >@{{adv.user.username}}</a
+    <div class="card my-2 w-75">
+      <h5 class="card-header">
+        {{adv.title}} <a href="users/{{adv.user_id}}"></a>@{{adv.user.username}}
+      </h5>
+      <div style="height: 20rem">
+        <img
+          src="{{adv.header_img_url}}"
+          class="card-img-top"
+          alt="Photo of activity."
+          style="object-fit: cover; height: 20rem"
+        />
+      </div>
+      <div class="card-body">
+        <p class="card-text">{{adv.timestamp.strftime('%B, %d %Y')}}</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">{{adv.location}}</li>
+        <li class="list-group-item">{{adv.departure_datetime}}</li>
+        <li class="list-group-item">{{adv.return_datetime}}</li>
+        <li class="list-group-item">{{adv.activity}}</li>
+      </ul>
+      <div class="card-body">
+        <a href="/adventures/{{adv.id}}" class="btn btn-sm btn-primary"
+          >Check it out!</a
         >
-        <p class="mb-1">{{adv.title}}</p>
-        <p>{{adv.timestamp}}</p>
-        <p>{{adv.activity}}</p>
-        <p>{{adv.location}}</p>
-        <p>{{adv.departure_datetime}}</p>
-        <p>{{adv.return_datetime}}</p>
+        <button class="btn btn-sm btn-success">Give Kudos</button>
       </div>
     </div>
     {% endfor %}

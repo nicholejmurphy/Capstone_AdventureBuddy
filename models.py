@@ -9,6 +9,7 @@ bcrypt = Bcrypt()
 db = SQLAlchemy()
 
 DEFAULT_PROFILE_IMG = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/512px-Windows_10_Default_Profile_Picture.svg.png?20221210150350"
+DEFAULT_ADV_HEADER = "https://images.unsplash.com/photo-1524959888614-3ab5712bf527?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80"
 
 
 class Follows(db.Model):
@@ -113,7 +114,7 @@ class Adventure(db.Model):
         db.ForeignKey('users.id', ondelete='CASCADE'),
         nullable=False,
     )
-
+    header_img_url = db.Column(db.Text, default=DEFAULT_ADV_HEADER)
     # Adventure Relationships
     kudos = db.relationship('Kudos', overlaps="kudos")
     waypoints = db.relationship(
