@@ -38,6 +38,7 @@ class User(db.Model):
 
     # User Relationships
     adventures = db.relationship("Adventure", backref="user")
+    addresses = db.relationship("Address", backref="user")
     kudos = db.relationship("Adventure", secondary="kudos")
     followers = db.relationship("User", secondary="follows", primaryjoin=(
         Follows.user_following_id == id), secondaryjoin=(Follows.user_being_followed_id == id))
@@ -154,6 +155,24 @@ class Kudos(db.Model):
         'adventures.id', ondelete='cascade'), primary_key=True)
     kudos_from_user_id = db.Column(db.Integer, db.ForeignKey(
         'users.id', ondelete='cascade'), primary_key=True)
+
+
+class Address(db.Model):
+    """Contacts for each user."""
+
+    __tablename__ = "addresses"
+
+    id = db.Column(
+        db.Integer,
+        primary_key=True,
+    )
+    nickname = db.Column(db.String(30), nullable=False)
+    phone = db.Column(db.String(12), nullable=False, default=+19898176328)
+    user_id = db.Column(
+        db.Integer,
+        db.ForeignKey('users.id', ondelete='CASCADE'),
+        nullable=False,
+    )
 
 
 def connect_db(app):
