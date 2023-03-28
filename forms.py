@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, PasswordField, DateTimeField, DecimalField, SelectField
+from wtforms import StringField, TextAreaField, PasswordField, DateField, TimeField, DecimalField, SelectField
 from wtforms.validators import DataRequired, Length
 
 
@@ -50,12 +50,14 @@ class AdventureForm(FlaskForm):
     location = StringField("General Location", validators=[DataRequired()])
     activity = StringField("Activity Type", validators=[
                            DataRequired(), Length(max=30)])
-    departure_datetime = DateTimeField(
+    departure_date = DateField(
+        "Expected Departure Date", validators=[DataRequired()])
+    departure_time = TimeField(
         "Expected Departure Time", validators=[DataRequired()])
-
-    return_datetime = DateTimeField(
+    return_date = DateField(
+        "Expected Return Date", validators=[DataRequired()])
+    return_time = TimeField(
         "Expected Return Time", validators=[DataRequired()])
-
     notes = TextAreaField("Notes")
 
 

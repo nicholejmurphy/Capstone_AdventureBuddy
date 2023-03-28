@@ -106,8 +106,10 @@ class Adventure(db.Model):
         default=datetime.utcnow(),
     )
     activity = db.Column(db.Text, nullable=False)
-    departure_datetime = db.Column(db.DateTime, nullable=False)
-    return_datetime = db.Column(db.DateTime, nullable=False)
+    departure_date = db.Column(db.Date, nullable=False)
+    departure_time = db.Column(db.Time, nullable=False)
+    return_date = db.Column(db.Date, nullable=False)
+    return_time = db.Column(db.Time, nullable=False)
     notes = db.Column(db.Text, default="No notes yet.")
     user_id = db.Column(
         db.Integer,

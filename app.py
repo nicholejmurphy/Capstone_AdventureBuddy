@@ -250,6 +250,18 @@ def remove_follow(user_id):
 
     return jsonify(complete=True)
 
+##########################################################################
+# ADVENTURE Views
+
+
+@app.route('/adventures/<int:adv_id>')
+def show_adventure(adv_id):
+    """Shows details about adventure."""
+
+    adv = Adventure.query.get_or_404(adv_id)
+
+    return render_template('adventures/details.html', adv=adv)
+
 
 @app.route('/adventures/create', methods=["GET", "POST"])
 def create_adventure():
@@ -259,9 +271,9 @@ def create_adventure():
 
     if form.validate_on_submit():
         adv = Adventure(title=form.title.data, location=form.location.data,
-                        activity=form.activity.data, departure_datetime=form.departure_datetime.data, return_datetime=form.return_datetime.data, notes=form.notes.data, header_img_url=form.header_img_url.data)
+                        activity=form.activity.data, departure_date=form.departure_date.data, return_date=form.return_date.data, departure_time=form.departure_time.data, return_time=form.return_time.data, notes=form.notes.data, header_img_url=form.header_img_url.data)
         db.session.commit()
-        g.user.append(adv)
+        g.user.adventures.append(adv)
         db.session.commit()
 
         return redirect(f'/adventures/{adv.id}')

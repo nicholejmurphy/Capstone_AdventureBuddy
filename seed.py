@@ -41,28 +41,28 @@ db.session.add_all([f1, f2, f3, f4, f5, f6, f7, f8,
                    f9, f10, f11, f12, f13, f14, f15])
 db.session.commit()
 
-a1 = Adventure(title="My first Adventure!", activity="Hiking", departure_datetime="07-18-2023 07:30",
-               return_datetime="07-18-2023 12:00", notes="It's going to be great!", user_id=1, location="Asheville, NC", header_img_url="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=871&q=80")
-a2 = Adventure(title="My first Adventure!", activity="Backpacking", departure_datetime="07-18-2023 07:30", header_img_url="https://images.unsplash.com/photo-1568038904349-849e9a803462?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
-               return_datetime="07-18-2023 12:00", notes="It's going to be great!", user_id=2, location="Asheville, NC")
-a3 = Adventure(title="My first Adventure!", activity="Swimming", departure_datetime="07-18-2023 07:30", header_img_url="https://images.unsplash.com/photo-1439066615861-d1af74d74000?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=773&q=80",
-               return_datetime="07-18-2023 12:00", notes="It's going to be great!", user_id=3, location="Asheville, NC")
-a4 = Adventure(title="My first Adventure!", activity="Mountaineering", departure_datetime="07-18-2023 07:30", header_img_url="https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=876&q=80",
-               return_datetime="07-18-2023 12:00", notes="It's going to be great!", user_id=4, location="Asheville, NC")
-a5 = Adventure(title="My first Adventure!", activity="Bushwacking", departure_datetime="07-18-2023 07:30",
-               return_datetime="07-18-2023 12:00", notes="It's going to be great!", user_id=5, location="Asheville, NC")
-a6 = Adventure(title="My first Adventure!", activity="Canoeing", header_img_url="https://images.unsplash.com/photo-1562512497-ec1bf623a897?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80", departure_datetime="07-18-2023 07:30",
-               return_datetime="07-18-2023 12:00", notes="It's going to be great!", user_id=6, location="Asheville, NC")
-a7 = Adventure(title="My second Adventure!", activity="Rafting", departure_datetime="07-18-2023 07:30", header_img_url="https://images.unsplash.com/photo-1595602435316-57c77ac8075d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-               return_datetime="07-18-2023 12:00", notes="It's going to be great!", user_id=1, location="Asheville, NC")
-a8 = Adventure(title="My second Adventure!", activity="Skiing", departure_datetime="07-18-2023 07:30",
-               return_datetime="07-18-2023 12:00", notes="It's going to be great!", user_id=2, location="Asheville, NC")
-a9 = Adventure(title="My second Adventure!", activity="Mountain Biking", departure_datetime="07-18-2023 07:30", header_img_url="https://images.unsplash.com/photo-1594942939850-d8da299577f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80",
-               return_datetime="07-18-2023 12:00", notes="It's going to be great!", user_id=3, location="Asheville, NC")
-a10 = Adventure(title="My second Adventure!", activity="Sledding", departure_datetime="07-18-2023 07:30",
-                return_datetime="07-18-2023 12:00", notes="It's going to be great!", user_id=4, location="Asheville, NC")
-a11 = Adventure(title="My second Adventure!", activity="Snowmobiling", departure_datetime="07-18-2023 07:30",
-                return_datetime="07-18-2023 12:00", notes="It's going to be great!", user_id=5, location="Asheville, NC")
+a1 = Adventure(title="My first Adventure!", activity="Hiking", departure_date="07-18-2023", departure_time="07:30", return_date="07-18-2023", return_time="12:00",
+               notes="It's going to be great!", user_id=1, location="Asheville, NC", header_img_url="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=871&q=80")
+a2 = Adventure(title="My first Adventure!", activity="Backpacking", departure_date="07-18-2023", departure_time="07:30", return_date="07-18-2023", return_time="12:00", header_img_url="https://images.unsplash.com/photo-1568038904349-849e9a803462?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
+               notes="It's going to be great!", user_id=2, location="Asheville, NC")
+a3 = Adventure(title="My first Adventure!", activity="Swimming", departure_date="07-18-2023", departure_time="07:30", return_date="07-18-2023", return_time="12:00", header_img_url="https://images.unsplash.com/photo-1439066615861-d1af74d74000?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=773&q=80",
+               notes="It's going to be great!", user_id=3, location="Asheville, NC")
+a4 = Adventure(title="My first Adventure!", activity="Mountaineering", departure_date="07-18-2023", departure_time="07:30", return_date="07-18-2023", return_time="12:00", header_img_url="https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=876&q=80",
+               notes="It's going to be great!", user_id=4, location="Asheville, NC")
+a5 = Adventure(title="My first Adventure!", activity="Bushwacking", departure_date="07-18-2023", departure_time="07:30", return_date="07-18-2023", return_time="12:00",
+               notes="It's going to be great!", user_id=5, location="Asheville, NC")
+a6 = Adventure(title="My first Adventure!", activity="Canoeing", header_img_url="https://images.unsplash.com/photo-1562512497-ec1bf623a897?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80", departure_date="07-18-2023", departure_time="07:30", return_date="07-18-2023", return_time="12:00",
+               notes="It's going to be great!", user_id=6, location="Asheville, NC")
+a7 = Adventure(title="My second Adventure!", activity="Rafting", departure_date="07-18-2023", departure_time="07:30", return_date="07-18-2023", return_time="12:00", header_img_url="https://images.unsplash.com/photo-1595602435316-57c77ac8075d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+               notes="It's going to be great!", user_id=1, location="Asheville, NC")
+a8 = Adventure(title="My second Adventure!", activity="Skiing", departure_date="07-18-2023", departure_time="07:30", return_date="07-18-2023", return_time="12:00",
+               notes="It's going to be great!", user_id=2, location="Asheville, NC")
+a9 = Adventure(title="My second Adventure!", activity="Mountain Biking", departure_date="07-18-2023", departure_time="07:30", return_date="07-18-2023", return_time="12:00", header_img_url="https://images.unsplash.com/photo-1594942939850-d8da299577f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80",
+               notes="It's going to be great!", user_id=3, location="Asheville, NC")
+a10 = Adventure(title="My second Adventure!", activity="Sledding", departure_date="07-18-2023", departure_time="07:30", return_date="07-18-2023", return_time="12:00",
+                notes="It's going to be great!", user_id=4, location="Asheville, NC")
+a11 = Adventure(title="My second Adventure!", activity="Snowmobiling", departure_date="07-18-2023", departure_time="07:30", return_date="07-18-2023", return_time="12:00",
+                notes="It's going to be great!", user_id=5, location="Asheville, NC")
 
 db.session.add_all([a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11])
 db.session.commit()
