@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, flash, redirect, session, g, 
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 
-from forms import UserSignUpForm, UserLoginForm, UserUpdateForm
+from forms import UserSignUpForm, UserLoginForm, UserUpdateForm, AdventureForm
 from models import db, connect_db, User, Adventure, Waypoint, Address, Kudos
 
 CURR_USER_ID = "curr_user"
@@ -249,3 +249,21 @@ def remove_follow(user_id):
     db.session.commit()
 
     return jsonify(complete=True)
+
+
+@app.route('/adventures/create', methods=["GET", "POST"])
+def create_adventure():
+    """Handles create adventure and shows form."""
+
+    form = AdventureForm()
+
+    if form.validate_on_submit():
+        adv = Adventure(title=form.title.data, location=form.location.data,
+                        activity=form.activity.data, departure_datetime=form.departure_datetime.data, return_datetime=form.return_datetime.data, notes=form.notes.data, header_img_url=form.header_img_url.data)
+        db.session.commit()
+        g.user.append(adv)
+        db.session.commit()
+
+        return redirect(f'/adventures/{adv.id}')
+
+    return render_template('adventures/create.html', form=form)

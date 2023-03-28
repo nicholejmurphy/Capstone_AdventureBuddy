@@ -46,17 +46,18 @@ class AdventureForm(FlaskForm):
 
     title = StringField("Title", validators=[
         DataRequired(), Length(max=100)])
+    header_img_url = StringField("Image URL")
     location = StringField("General Location", validators=[DataRequired()])
     activity = StringField("Activity Type", validators=[
                            DataRequired(), Length(max=30)])
     departure_datetime = DateTimeField(
-        "Expected Departure Time",  format='%m-%d-%Y %H:%M', validators=[DataRequired()])
+        "Expected Departure Time", validators=[DataRequired()])
 
     return_datetime = DateTimeField(
-        "Exprected Return Time", format='%m-%d-%Y %H:%M', validators=[DataRequired()])
+        "Expected Return Time", validators=[DataRequired()])
 
     notes = TextAreaField("Notes")
-    header_img_url = StringField("Image URL")
+
 
 class WaypointForm(FlaskForm):
     """Form for creating and updating waypoints."""
