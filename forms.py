@@ -46,6 +46,7 @@ class AdventureForm(FlaskForm):
 
     title = StringField("Title", validators=[
         DataRequired(), Length(max=100)])
+    location = StringField("General Location", validators=[DataRequired()])
     activity = StringField("Activity Type", validators=[
                            DataRequired(), Length(max=30)])
     departure_datetime = DateTimeField(

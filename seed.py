@@ -42,27 +42,27 @@ db.session.add_all([f1, f2, f3, f4, f5, f6, f7, f8,
 db.session.commit()
 
 a1 = Adventure(title="My first Adventure!", activity="Hiking", departure_datetime="07-18-2023 07:30",
-               return_datetime="07-18-2023 12:00", notes="It's going to be great!", user_id=1)
+               return_datetime="07-18-2023 12:00", notes="It's going to be great!", user_id=1, location="Asheville, NC")
 a2 = Adventure(title="My first Adventure!", activity="Backpacking", departure_datetime="07-18-2023 07:30",
-               return_datetime="07-18-2023 12:00", notes="It's going to be great!", user_id=2)
+               return_datetime="07-18-2023 12:00", notes="It's going to be great!", user_id=2, location="Asheville, NC")
 a3 = Adventure(title="My first Adventure!", activity="Swimming", departure_datetime="07-18-2023 07:30",
-               return_datetime="07-18-2023 12:00", notes="It's going to be great!", user_id=3)
+               return_datetime="07-18-2023 12:00", notes="It's going to be great!", user_id=3, location="Asheville, NC")
 a4 = Adventure(title="My first Adventure!", activity="Mountaineering", departure_datetime="07-18-2023 07:30",
-               return_datetime="07-18-2023 12:00", notes="It's going to be great!", user_id=4)
+               return_datetime="07-18-2023 12:00", notes="It's going to be great!", user_id=4, location="Asheville, NC")
 a5 = Adventure(title="My first Adventure!", activity="Bushwacking", departure_datetime="07-18-2023 07:30",
-               return_datetime="07-18-2023 12:00", notes="It's going to be great!", user_id=5)
+               return_datetime="07-18-2023 12:00", notes="It's going to be great!", user_id=5, location="Asheville, NC")
 a6 = Adventure(title="My first Adventure!", activity="Canoeing", departure_datetime="07-18-2023 07:30",
-               return_datetime="07-18-2023 12:00", notes="It's going to be great!", user_id=6)
+               return_datetime="07-18-2023 12:00", notes="It's going to be great!", user_id=6, location="Asheville, NC")
 a7 = Adventure(title="My second Adventure!", activity="Rafting", departure_datetime="07-18-2023 07:30",
-               return_datetime="07-18-2023 12:00", notes="It's going to be great!", user_id=1)
+               return_datetime="07-18-2023 12:00", notes="It's going to be great!", user_id=1, location="Asheville, NC")
 a8 = Adventure(title="My second Adventure!", activity="Skiing", departure_datetime="07-18-2023 07:30",
-               return_datetime="07-18-2023 12:00", notes="It's going to be great!", user_id=2)
+               return_datetime="07-18-2023 12:00", notes="It's going to be great!", user_id=2, location="Asheville, NC")
 a9 = Adventure(title="My second Adventure!", activity="Mountain Biking", departure_datetime="07-18-2023 07:30",
-               return_datetime="07-18-2023 12:00", notes="It's going to be great!", user_id=3)
+               return_datetime="07-18-2023 12:00", notes="It's going to be great!", user_id=3, location="Asheville, NC")
 a10 = Adventure(title="My second Adventure!", activity="Sledding", departure_datetime="07-18-2023 07:30",
-                return_datetime="07-18-2023 12:00", notes="It's going to be great!", user_id=4)
+                return_datetime="07-18-2023 12:00", notes="It's going to be great!", user_id=4, location="Asheville, NC")
 a11 = Adventure(title="My second Adventure!", activity="Snowmobiling", departure_datetime="07-18-2023 07:30",
-                return_datetime="07-18-2023 12:00", notes="It's going to be great!", user_id=5)
+                return_datetime="07-18-2023 12:00", notes="It's going to be great!", user_id=5, location="Asheville, NC")
 
 db.session.add_all([a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11])
 db.session.commit()

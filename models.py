@@ -78,8 +78,6 @@ class User(db.Model):
         """If user is found, returns user - else, returns False."""
         user = cls.query.filter_by(username=username).first()
         if user:
-            import pdb
-            pdb.set_trace()
             authorized = bcrypt.check_password_hash(user.password, password)
             if authorized:
                 return user
@@ -100,6 +98,7 @@ class Adventure(db.Model):
         db.String(100),
         nullable=False,
     )
+    location = db.Column(db.String, nullable=False)
     timestamp = db.Column(
         db.DateTime,
         nullable=False,

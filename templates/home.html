@@ -27,20 +27,25 @@
     <hr />
     <!-- **************************************************************** -->
     <!-- Maybe change this into a card once we have adventures to show... -->
-    {% for user in g.user.following %}
+    {% for adv in advs %}
     <div class="media mb-3">
       <img
-        src="{{user.profile_img}}"
+        src="{{adv.user.profile_img}}"
         class="align-self-start mr-3 d-inline"
         alt="profile picture."
         style="height: 80px; width: 80px"
       />
       <div class="media-body">
-        <h5 class="mb-0">{{user.first_name}} {{user.last_name}}</h5>
-        <a href="/users/{{user.id}}" class="card-subtitle text-success"
-          >@{{user.username}}</a
+        <h5 class="mb-0">{{adv.user.username}} {{adv.user.last_name}}</h5>
+        <a href="/users/{{adv.user.id}}" class="card-subtitle text-success"
+          >@{{adv.user.username}}</a
         >
-        <p class="mb-1">{{user.location}}</p>
+        <p class="mb-1">{{adv.title}}</p>
+        <p>{{adv.timestamp}}</p>
+        <p>{{adv.activity}}</p>
+        <p>{{adv.location}}</p>
+        <p>{{adv.departure_datetime}}</p>
+        <p>{{adv.return_datetime}}</p>
       </div>
     </div>
     {% endfor %}
