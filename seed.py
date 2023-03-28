@@ -1,5 +1,5 @@
 from app import db
-from models import User, Follows, Adventure, Kudos, Waypoint, AdventuresWaypoints
+from models import User, Follows, Adventure, Waypoint, Address
 
 db.drop_all()
 db.create_all()
@@ -94,4 +94,9 @@ a9.waypoints.append(w9)
 a10.waypoints.append(w10)
 a11.waypoints.append(w11)
 
+db.session.commit()
+
+address = Address(nickname="Nicky", user_id=1)
+
+db.session.add(address)
 db.session.commit()
