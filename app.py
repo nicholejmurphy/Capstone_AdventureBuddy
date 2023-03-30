@@ -279,3 +279,35 @@ def create_adventure():
         return redirect(f'/adventures/{adv.id}')
 
     return render_template('adventures/create.html', form=form)
+
+
+##########################################################################
+# Kudos Views
+@app.route('/kudos/<int:adv_id>/give', methods=["POST"])
+def give_kudos(adv_id):
+    """Remove adventure from user's kudos list."""
+
+    if not g.user:
+        flash("Unathorized access. You must be logged in to view.", "danger")
+        return redirect("/login")
+
+    adv = Adventure.query.get_or_404(adv_id)
+    g.user.kudos.append(adv)
+    db.session.commit()
+
+    return jsonify(complete=True)
+
+
+@app.route('/kudos/<int:adv_id>/remove', methods=["POST"])
+def remove_kudos(adv_id):
+    """Remove adventure from user's kudos list."""
+
+    if not g.user:
+        flash("Unathorized access. You must be logged in to view.", "danger")
+        return redirect("/login")
+
+    adv = Adventure.query.get_or_404(adv_id)
+    g.user.kudos.remove(adv)
+    db.session.commit()
+
+    return jsonify(complete=True)

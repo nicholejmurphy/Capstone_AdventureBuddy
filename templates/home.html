@@ -91,11 +91,19 @@
             <div
               class="col-3 d-flex align-items-center justify-content-center mr-2"
             >
-              <button
-                class="btn btn-sm btn-outline-success rounded-circle ml-0"
+              {% if adv in g.user.kudos %}<button
+                class="btn btn-success rounded-circle ml-0 kudos"
+                data-kudos="True"
+                data-id="{{adv.id}}"
               >
-                <i class="fa-solid fa-thumbs-up"></i>
-              </button>
+                <i class="fa-solid fa-thumbs-up"></i></button
+              >{% else %}<button
+                class="btn btn-outline-success rounded-circle ml-0 kudos"
+                data-kudos="False"
+                data-id="{{adv.id}}"
+              >
+                <i class="fa-solid fa-thumbs-up"></i></button
+              >{% endif %}
             </div>
           </div>
           <div class="row d-flex">
