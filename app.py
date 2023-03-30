@@ -123,6 +123,10 @@ def logout():
 def search_users():
     """Handles search for users"""
 
+    if not g.user:
+        flash("Unathorized access. You must be logged in to view.", "danger")
+        return redirect("/login")
+
     search = request.args.get('q')
 
     if not search:
@@ -137,6 +141,11 @@ def search_users():
 def show_profile(user_id):
     """Show user profile with adventures.
     """
+
+    if not g.user:
+        flash("Unathorized access. You must be logged in to view.", "danger")
+        return redirect("/login")
+
     user = User.query.get_or_404(user_id)
 
     return render_template('users/profile.html', user=user)
@@ -147,6 +156,10 @@ def show_profile(user_id):
 @app.route('/users/update', methods=["POST", "GET"])
 def update_user():
     """Handles update profile."""
+
+    if not g.user:
+        flash("Unathorized access. You must be logged in to view.", "danger")
+        return redirect("/login")
 
     form = UserUpdateForm(obj=g.user)
 
@@ -258,6 +271,10 @@ def remove_follow(user_id):
 def show_adventure(adv_id):
     """Shows details about adventure."""
 
+    if not g.user:
+        flash("Unathorized access. You must be logged in to view.", "danger")
+        return redirect("/login")
+
     adv = Adventure.query.get_or_404(adv_id)
 
     return render_template('adventures/details.html', adv=adv)
@@ -266,6 +283,10 @@ def show_adventure(adv_id):
 @app.route('/adventures/create', methods=["GET", "POST"])
 def create_adventure():
     """Handles create adventure and shows form."""
+
+    if not g.user:
+        flash("Unathorized access. You must be logged in to view.", "danger")
+        return redirect("/login")
 
     form = AdventureForm()
 
@@ -281,8 +302,53 @@ def create_adventure():
     return render_template('adventures/create.html', form=form)
 
 
+@app.route('/adventures/<int:adv_id>/update', methods=["GET", "POST"])
+def update_adventure(adv_id):
+    """Handles create adventure and shows form."""
+
+    if not g.user:
+        flash("Unathorized access. You must be logged in to view.", "danger")
+        return redirect("/login")
+
+    adv = Adventure.query.get_or_404(adv_id)
+    form = AdventureForm(obj=adv)
+
+    if form.validate_on_submit():
+        adv.title = form.title.data
+        adv.location = form.location.data
+        adv.activity = form.activity.data
+        adv.departure_date = form.departure_date.data
+        adv.return_date = form.return_date.data
+        adv.departure_time = form.departure_time.data
+        adv.return_time = form.return_time.data
+        adv.notes = form.notes.data
+        adv.header_img_url = form.header_img_url.data
+
+        db.session.commit()
+
+        return redirect(f'/adventures/{adv.id}')
+
+    return render_template('adventures/update.html', form=form, adv=adv)
+
+
+@app.route('/adventures/<int:adv_id>/delete', methods=["POST"])
+def adventures_destroy(adv_id):
+    """Delete an adventure."""
+
+    if not g.user:
+        flash("Unathorized access. You must be logged in to view.", "danger")
+        return redirect("/login")
+
+    adv = Adventure.query.get(adv_id)
+    db.session.delete(adv)
+    db.session.commit()
+
+    return redirect(f"/users/{g.user.id}")
+
 ##########################################################################
 # Kudos Views
+
+
 @app.route('/kudos/<int:adv_id>/give', methods=["POST"])
 def give_kudos(adv_id):
     """Remove adventure from user's kudos list."""

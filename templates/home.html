@@ -1,6 +1,6 @@
 {% extends 'base.html'%} {% block content %}
 <div class="d-flex">
-  <div class="container w-25 p-4 my-4 mx-4 rounded shadow">
+  <div class="container w-25 p-4 my-4 mx-4 rounded shadow bg-light">
     <div class="row">
       <div class="media pl-3">
         <div class="col-3 pl-0 mr-1">
@@ -56,14 +56,14 @@
   </div>
 
   <!-- List of Adventures -->
-  <div class="container w-50 my-4 p-4 ml-5 d-inline rounded shadow">
+  <div class="container w-50 my-4 p-4 ml-5 d-inline rounded shadow bg-light">
     <div class="container my-2">
       {% for category, message in get_flashed_messages(with_categories=True) %}
       <div class="alert alert-{{category}}" role="alert">{{ message }}</div>
       {% endfor %}
     </div>
     <h1 class="h4">Adventure Feed</h1>
-    <hr />
+    <hr class="bg-success" />
     {% for adv in advs %}
     <div class="card my-2 w-75 shadow mx-auto mb-3">
       <div style="height: 15rem">

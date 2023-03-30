@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% block content %}
 
-<div class="container rounded shadow bg-dark p-5 my-5 w-50">
+<div class="container rounded shadow bg-success p-5 my-5 w-50">
   <h3 class="display-4 text-light text-center">@{{g.user.username}}</h3>
   <hr class="bg-light mb-4" />
   <div class="container my-2">
@@ -19,7 +19,15 @@
         </p>
       </div>
       {% endfor %}
-      <button class="btn btn-outline-primary" type="submit">Update</button>
+      <button
+        formaction="/users/{{g.user.id}}"
+        formmethod="get"
+        class="btn btn-outline-secondary"
+        type="submit"
+      >
+        Cancel
+      </button>
+      <button class="btn btn-primary" type="submit">Update</button>
     </form>
   </div>
 </div>
