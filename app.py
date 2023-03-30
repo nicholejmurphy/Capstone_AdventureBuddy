@@ -271,7 +271,7 @@ def create_adventure():
 
     if form.validate_on_submit():
         adv = Adventure(title=form.title.data, location=form.location.data,
-                        activity=form.activity.data, departure_date=form.departure_date.data, return_date=form.return_date.data, departure_time=form.departure_time.data, return_time=form.return_time.data, notes=form.notes.data, header_img_url=form.header_img_url.data)
+                        activity=form.activity.data, departure_date=form.departure_date.data, return_date=form.return_date.data, departure_time=form.departure_time.data, return_time=form.return_time.data, notes=form.notes.data, header_img_url=form.header_img_url.data, user_id=g.user.id)
         db.session.commit()
         g.user.adventures.append(adv)
         db.session.commit()

@@ -26,17 +26,17 @@
     <div class="container px-0">
       <div class="container row text-center px-0 mt-3 mx-0">
         <div class="col-4 text-center">
-          <a class="h4 text-success" href="users/{{user.id}}/following"
+          <a class="h4 text-success" href="/users/{{user.id}}/following"
             >{{user.following | length}}</a
           >
         </div>
         <div class="col-4 text-center">
-          <a class="h4 text-success" href="users/{{user.id}}/followers"
+          <a class="h4 text-success" href="/users/{{user.id}}/followers"
             >{{user.followers | length}}</a
           >
         </div>
         <div class="col-4 text-center">
-          <a class="h4 text-success" href="adventures/{{user.id}}"
+          <a class="h4 text-success" href="/adventures/{{user.id}}"
             >{{user.adventures | length}}</a
           >
         </div>
@@ -51,6 +51,8 @@
 
   <!-- List of followers -->
   <div class="container w-50 my-4 p-4 ml-5 d-inline rounded shadow">
+    <h4>Following</h4>
+    <hr />
     {% for u in user.following %}
     <div class="mb-4 row">
       <div class="col-2">
@@ -70,7 +72,7 @@
         <p class="mb-1">{{u.location}}</p>
       </div>
       <div class="col-2 d-flex justify-content-center align-items-center mr-3">
-        {% if user == g.user %} {% if user.is_following(u) %}
+        {% if user.is_following(u) %}
         <button
           id="follow-btn"
           data-id="{{u.id}}"
@@ -82,7 +84,7 @@
         <button data-id="{{u.id}}" class="btn btn-primary follow-btn follow">
           follow
         </button>
-        {% endif %} {% endif %}
+        {% endif %}
       </div>
     </div>
     {% endfor %}
