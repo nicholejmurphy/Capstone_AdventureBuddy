@@ -19,68 +19,66 @@
   </head>
   <body>
     <nav class="navbar navbar-light bg-light shadow px-5">
-      <div class="container">
-        <a class="navbar-brand text-success display-4" href="/"
-          ><i class="fa-solid fa-location-dot"></i> OutThere</a
+      <a class="navbar-brand text-success display-4" href="/"
+        ><i class="fa-solid fa-location-dot"></i> OutThere</a
+      >
+      <form class="form-inline">
+        {% if g.user == None %}
+        <button
+          formaction="/login"
+          class="btn btn-outline-primary btn-sm py-1 my-2 mr-2 my-sm-0"
+          type="submit"
         >
-        <form class="form-inline">
-          {% if g.user == None %}
+          Login
+        </button>
+        <button
+          formaction="/signup"
+          class="btn btn-success btn-sm py-1 my-2 my-sm-0"
+          type="submit"
+        >
+          SignUp
+        </button>
+        {% else %}<input
+          class="form-control form-control-sm py-0 mr-sm-2"
+          type="search"
+          name="q"
+          placeholder="Search Users"
+          aria-label="Search"
+        /><button
+          formaction="/users"
+          class="btn btn-outline-info btn-sm mr-2 my-2 my-sm-0"
+          type="submit"
+        >
+          Search
+        </button>
+        <div class="dropdown">
           <button
-            formaction="/login"
-            class="btn btn-outline-primary btn-sm py-1 my-2 mr-2 my-sm-0"
-            type="submit"
+            class="btn btn-sm btn-success dropdown-toggle py-1"
+            type="button"
+            id="dropdownMenuButton"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
           >
-            Login
+            {{g.user.username}}
           </button>
-          <button
-            formaction="/signup"
-            class="btn btn-success btn-sm py-1 my-2 my-sm-0"
-            type="submit"
-          >
-            SignUp
-          </button>
-          {% else %}<input
-            class="form-control form-control-sm py-0 mr-sm-2"
-            type="search"
-            name="q"
-            placeholder="Search Users"
-            aria-label="Search"
-          /><button
-            formaction="/users"
-            class="btn btn-outline-info btn-sm mr-2 my-2 my-sm-0"
-            type="submit"
-          >
-            Search
-          </button>
-          <div class="dropdown">
-            <button
-              class="btn btn-sm btn-success dropdown-toggle py-1"
-              type="button"
-              id="dropdownMenuButton"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="/users/{{g.user.id}}"
+              >View profile</a
             >
-              {{g.user.username}}
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="/users/{{g.user.id}}"
-                >View profile</a
-              >
-              <a class="dropdown-item" href="/users/update">Update profile</a>
-            </div>
+            <a class="dropdown-item" href="/users/update">Update profile</a>
           </div>
-          <p class="navbar-text text-success my-2 ml-2 p-0">|</p>
-          <a
-            href="/logout"
-            class="navbar-nav text-success py-1 my-2 mr-2 ml-3 my-sm-0"
-          >
-            Logout
-          </a>
+        </div>
+        <p class="navbar-text text-success my-2 ml-2 p-0">|</p>
+        <a
+          href="/logout"
+          class="navbar-nav text-success py-1 my-2 mr-2 ml-3 my-sm-0"
+        >
+          Logout
+        </a>
 
-          {% endif %}
-        </form>
-      </div>
+        {% endif %}
+      </form>
     </nav>
     {% block content %} {% endblock %}
     <!-- Scripts -->
