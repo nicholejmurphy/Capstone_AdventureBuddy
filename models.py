@@ -40,7 +40,8 @@ class User(db.Model):
     # User Relationships
     adventures = db.relationship("Adventure", backref="user")
     addresses = db.relationship("Address", backref="user")
-    kudos = db.relationship("Adventure", secondary="kudos")
+    kudos = db.relationship(
+        "Adventure", secondary="kudos", backref="kudos")
     followers = db.relationship("User", secondary="follows", primaryjoin=(
         Follows.user_following_id == id), secondaryjoin=(Follows.user_being_followed_id == id))
     following = db.relationship("User", secondary="follows", primaryjoin=(
@@ -119,7 +120,6 @@ class Adventure(db.Model):
     header_img_url = db.Column(db.Text, default=DEFAULT_ADV_HEADER)
 
     # Adventure Relationships
-    kudos = db.relationship('Kudos', overlaps="kudos")
     waypoints = db.relationship(
         "Waypoint", secondary="adventures_waypoints", backref="adventures")
 

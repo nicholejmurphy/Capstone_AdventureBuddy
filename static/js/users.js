@@ -6,9 +6,9 @@ const BASE_URL = "http://127.0.0.1:5000";
 const followBtnClass = "btn btn-primary follow-btn follow";
 const unfollowBtnClass = "btn btn-outline-primary follow-btn unfollow";
 const giveKudosBtnClass =
-  "btn btn-success rounded-circle ml-0 mr-2 mb-0 float-right kudos";
+  "btn btn-sm btn-success rounded-circle ml-0 mr-2 mb-0 float-right kudos";
 const removeKudosBtnClass =
-  "btn btn-outline-success rounded-circle ml-0 mr-2 mb-0 float-right kudos";
+  "btn btn-sm btn-outline-success rounded-circle ml-0 mr-2 mb-0 float-right kudos";
 
 async function handleFollow(evt) {
   // Follow user and update button style.
