@@ -116,7 +116,9 @@
         />
       </div>
 
+      <!-- Start of list group  -->
       <ul class="list-group list-group-flush">
+        <!-- Adv. Details -->
         <li class="list-group-item pb-0">
           <div class="row">
             <div class="col-4 d-flex justify-content-center">
@@ -141,6 +143,7 @@
             </div>
           </div>
         </li>
+        <!-- Adv. Date/Time information. -->
         <li class="list-group-item">
           <div class="row ml-2">
             <div class="col"><small>Expected Departure:</small></div>
@@ -157,16 +160,96 @@
             </div>
           </div>
         </li>
+        <!-- Waypoints -->
         <li class="list-group-item">
-          <div class="row ml-2">
-            <div class="col">Waypoints</div>
-            <div class="col">Add modal with AJAX requests</div>
-          </div>
-          <div class="row ml-2">
+          <div class="row ml-2 mb-2">
             <div class="col">
-              <button class="btn btn-sm btn-success">Add Waypoint</button>
+              <small class="">Waypoints:</small>
             </div>
           </div>
+          {% for wp in adv.waypoints%}
+          <div class="row ml-2">
+            {% if g.user.id == adv.user_id %}
+            <div class="col-1">
+              <i class="fa-solid fa-trash text-dark"></i>
+            </div>
+            {% endif %}
+            <div class="col-4">
+              <p>
+                <i
+                  class="fa-solid fa-location-dot mr-1"
+                  style="color: {{wp.color}}"
+                ></i>
+                {{wp.lat}}, {{wp.long}}
+              </p>
+            </div>
+            <div class="col">{{wp.name}}</div>
+          </div>
+          {% endfor %} {% if g.user.id == adv.user_id %}
+          <div class="row ml-2 mt-1">
+            <div class="col">
+              <div class="btn-group dropright">
+                <button
+                  class="btn btn-sm btn-outline-success dropdown-toggle"
+                  type="button"
+                  id="dropdownMenuButton"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Create Waypoint
+                </button>
+                <form class="dropdown-menu p-4">
+                  <div class="form-group">
+                    <label for="latitude">Latitude</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="latitude"
+                      name="lat"
+                      placeholder="35.595"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="longitude">Longitude</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="longitude"
+                      name="long"
+                      placeholder="-82.5514"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="color">Color</label>
+                    <select
+                      id="color"
+                      class="form-control form-control-sm"
+                      name="color"
+                    >
+                      <option>red</option>
+                      <option>orange</option>
+                      <option>yellow</option>
+                      <option>green</option>
+                      <option>blue</option>
+                      <option>purple</option>
+                      <option>pink</option>
+                      <option>brown</option>
+                      <option>black</option>
+                    </select>
+                  </div>
+                  <button
+                    id="add-waypoint"
+                    data-id="{{adv.id}}"
+                    class="btn btn-success"
+                  >
+                    Add
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+          {% endif %}
         </li>
         <li class="list-group-item">
           <div class="row ml-2">
@@ -178,16 +261,22 @@
         </li>
         {% if g.user.id == adv.user_id %}
         <li class="list-group-item text-right">
-          <a
-            href="/adventures/{{adv.id}}/update"
-            class="btn btn-sm btn-info mr-1"
-            >Update</a
-          >
-          <a
-            href="/adventures/{{adv.id}}/delete"
-            class="btn btn-sm btn-outline-danger"
-            >Delete</a
-          >
+          <form>
+            <button
+              formaction="/adventures/{{adv.id}}/update"
+              formmethod="get"
+              class="btn btn-sm btn-info mr-1"
+            >
+              Update
+            </button>
+            <button
+              formaction="/adventures/{{adv.id}}/delete"
+              formmethod="post"
+              class="btn btn-sm btn-danger"
+            >
+              Delete
+            </button>
+          </form>
         </li>
         {% endif %}
       </ul>

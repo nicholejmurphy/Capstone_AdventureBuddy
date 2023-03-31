@@ -377,3 +377,29 @@ def remove_kudos(adv_id):
     db.session.commit()
 
     return jsonify(complete=True)
+
+##########################################################################
+# Waypoint Views
+
+
+@app.route('/adventures/<int:adv_id>/waypoint/add', methods=["POST"])
+def add_waypoint(adv_id):
+    """Add a waypoint to an adventure."""
+
+    if not g.user:
+        flash("Unathorized access. You must be logged in to view.", "danger")
+        return redirect("/login")
+
+    adv = Adventure.query.get_or_404(adv_id)
+
+    lat = request.json.get('lat')
+    long = request.json.get('long')
+    color = request.json.get('color')
+
+    wp = Waypoint(lat=float(lat), long=float(long), color=color)
+    db.session.commit()
+
+    adv.waypoints.append(wp)
+    db.session.commit()
+
+    return jsonify(complete=True)

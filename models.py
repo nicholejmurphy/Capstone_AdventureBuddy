@@ -121,7 +121,7 @@ class Adventure(db.Model):
 
     # Adventure Relationships
     waypoints = db.relationship(
-        "Waypoint", secondary="adventures_waypoints", backref="adventures")
+        "Waypoint", secondary="adventures_waypoints", backref="adventure")
 
 
 class Waypoint(db.Model):
