@@ -70,3 +70,4 @@ class WaypointForm(FlaskForm):
                         DataRequired()], places=8, rounding=None)
     color = SelectField("Waypoint Color", choices=[
                         "red", "orange", "yellow", "green", "blue", "purple", "pink", "black", "brown"])
+    name = StringField("Name")

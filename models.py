@@ -136,6 +136,7 @@ class Waypoint(db.Model):
     lat = db.Column(db.Float, nullable=False)
     long = db.Column(db.Float, nullable=False)
     color = db.Column(db.String, nullable=False, default="red")
+    name = db.Column(db.String, nullable=True)
 
 
 class AdventuresWaypoints(db.Model):

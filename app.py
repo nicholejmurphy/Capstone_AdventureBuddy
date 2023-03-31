@@ -395,8 +395,9 @@ def add_waypoint(adv_id):
     lat = request.json.get('lat')
     long = request.json.get('long')
     color = request.json.get('color')
+    name = request.json.get('name')
 
-    wp = Waypoint(lat=float(lat), long=float(long), color=color)
+    wp = Waypoint(lat=float(lat), long=float(long), color=color, name=name)
     db.session.commit()
 
     adv.waypoints.append(wp)
