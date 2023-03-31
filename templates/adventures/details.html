@@ -167,25 +167,29 @@
               <small class="">Waypoints:</small>
             </div>
           </div>
-          {% for wp in adv.waypoints%}
-          <div class="row ml-2">
-            {% if g.user.id == adv.user_id %}
-            <div class="col-1">
-              <i class="fa-solid fa-trash text-dark"></i>
+          <div class="waypoints-container">
+            {% for wp in adv.waypoints%}
+            <div class="row ml-2">
+              {% if g.user.id == adv.user_id %}
+              <div class="col-1">
+                <i data-id="{{wp.id}}" class="fa-solid fa-trash text-dark"></i>
+              </div>
+              {% endif %}
+              <div class="col-4">
+                <p>
+                  <i
+                    class="fa-solid fa-location-dot mr-1"
+                    style="color: {{wp.color}}"
+                  ></i>
+                  {{wp.lat}}, {{wp.long}}
+                </p>
+              </div>
+              <div class="col">{{wp.name}}</div>
             </div>
-            {% endif %}
-            <div class="col-4">
-              <p>
-                <i
-                  class="fa-solid fa-location-dot mr-1"
-                  style="color: {{wp.color}}"
-                ></i>
-                {{wp.lat}}, {{wp.long}}
-              </p>
-            </div>
-            <div class="col">{{wp.name}}</div>
+
+            {% endfor %}
           </div>
-          {% endfor %} {% if g.user.id == adv.user_id %}
+          {% if g.user.id == adv.user_id %}
           <div class="row ml-2 mt-1">
             <div class="col">
               <div class="btn-group dropright">
@@ -237,15 +241,15 @@
                       class="form-control form-control-sm"
                       name="color"
                     >
-                      <option>red</option>
-                      <option>orange</option>
-                      <option>yellow</option>
-                      <option>green</option>
-                      <option>blue</option>
-                      <option>purple</option>
-                      <option>pink</option>
-                      <option>brown</option>
-                      <option>black</option>
+                      <option>Red</option>
+                      <option>Orange</option>
+                      <option>Yellow</option>
+                      <option>Green</option>
+                      <option>Blue</option>
+                      <option>Purple</option>
+                      <option>Pink</option>
+                      <option>Brown</option>
+                      <option>Black</option>
                     </select>
                   </div>
                   <button
@@ -269,9 +273,10 @@
             <div class="col"><p>{{adv.notes}}</p></div>
           </div>
         </li>
-        {% if g.user.id == adv.user_id %}
-        <li class="list-group-item text-right">
-          <form>
+
+        <li class="list-group-item">
+          {% if g.user.id == adv.user_id %}
+          <form class="float-right">
             <button
               formaction="/adventures/{{adv.id}}/update"
               formmethod="get"
@@ -287,8 +292,58 @@
               Delete
             </button>
           </form>
+          {% endif %}
+          <!-- Button trigger modal -->
+          <button
+            type="button"
+            class="btn btn-warning float-left"
+            data-toggle="modal"
+            data-target="#generate-map"
+          >
+            Generate Map
+          </button>
+
+          <!-- Modal -->
+          <div
+            class="modal fade"
+            id="generate-map"
+            tabindex="-1"
+            aria-labelledby="generate-map-Label"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="generate-map-Label">
+                    {{adv.title}}
+                  </h5>
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  {% if adv.waypoints |length == 0 %}A map will be available
+                  once waypoints have been added to this adventure. The
+                  opportunities are endless!{% endif %}
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-warning float-left"
+                    data-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </li>
-        {% endif %}
       </ul>
     </div>
   </div>

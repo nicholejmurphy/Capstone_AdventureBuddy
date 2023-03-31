@@ -403,4 +403,19 @@ def add_waypoint(adv_id):
     adv.waypoints.append(wp)
     db.session.commit()
 
+    return jsonify(id=wp.id)
+
+
+@app.route('/adventures/waypoint/<int:wp_id>/remove', methods=["POST"])
+def remove_waypoint(wp_id):
+    """Removes instance of waypoint."""
+
+    if not g.user:
+        flash("Unathorized access. You must be logged in to view.", "danger")
+        return redirect("/login")
+
+    wp = Waypoint.query.get_or_404(wp_id)
+    db.session.delete(wp)
+    db.session.commit()
+
     return jsonify(complete=True)

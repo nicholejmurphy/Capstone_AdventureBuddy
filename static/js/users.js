@@ -71,15 +71,19 @@ async function handleWaypoint(evt) {
 
   evt.preventDefault();
 
-  console.log();
-
   const lat = $("#latitude").val();
   const long = $("#longitude").val();
   const color = $("#color").val();
+  const name = $("#name").val();
 
   if (validWaypoint(lat, long)) {
     const adv_id = $(evt.target).attr("data-id");
-    const json = JSON.stringify({ lat: lat, long: long, color: color });
+    const json = JSON.stringify({
+      lat: lat,
+      long: long,
+      color: color,
+      name: name,
+    });
     const resp = await axios.post(
       `${BASE_URL}/adventures/${adv_id}/waypoint/add`,
       json,
@@ -87,37 +91,41 @@ async function handleWaypoint(evt) {
     );
 
     // Add html.
-    const html = `<p><i class="fa-solid fa-location-dot mr-1" style="color: ${color}"></i> ${lat}, ${long}</p>`;
-    const $div = $(evt.target)
-      .parent()
-      .parent()
-      .parent()
-      .parent()
-      .prev()
-      .children("div");
+    const html = `
+    <div class="row ml-2">
+      <div class="col-1">
+        <i data-id="${resp.data["id"]}" class="fa-solid fa-trash text-dark"></i>
+      </div>
+      <div class="col-4">
+        <p>
+          <i
+            class="fa-solid fa-location-dot mr-1"
+            style="color: ${color}"
+          ></i>
+          ${lat}, ${long}
+        </p>
+      </div>
+      <div class="col">${name}</div>
+    </div>`;
 
+    const $div = $(evt.target).parent().parent().parent().parent().prev();
     $($div).append(html);
   } else {
     alert("Invalid coordinates. Your waypoint was not added.");
   }
 }
 
+async function removeWaypoint(evt) {
+  // Removes instance of waypoint and deletes from view.
+
+  const wp_id = $(evt.target).attr("data-id");
+  const resp = await axios.post(
+    `${BASE_URL}/adventures/waypoint/${wp_id}/remove`
+  );
+  $(evt.target).parent().parent().remove();
+}
+
 $body.on("click", ".kudos", handleKudos);
 $body.on("click", ".follow-btn", handleFollow);
 $body.on("click", "#add-waypoint", handleWaypoint);
-
-// `<div class="row ml-2">
-//   <div class="col-1">
-//     <i class="fa-solid fa-trash text-dark"></i>
-//   </div>
-//   <div class="col-4">
-//     <p>
-//       <i
-//         class="fa-solid fa-location-dot mr-1"
-//         style="color: ${color}"
-//       ></i>
-//       ${lat}, ${long}
-//     </p>
-//   </div>
-//   <div class="col">${name}</div>
-// </div>`;
+$body.on("click", ".fa-trash", removeWaypoint);
