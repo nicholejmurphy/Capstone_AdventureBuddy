@@ -125,7 +125,28 @@ async function removeWaypoint(evt) {
   $(evt.target).parent().parent().remove();
 }
 
+async function generateMap(evt) {
+  const adv_id = $(evt.target).attr("data-adv-id");
+  const resp = await axios
+    .get(`${BASE_URL}/adventures/${adv_id}/map`)
+    .then((response) => {
+      const r = axios.get(response.data["url"], {
+        responseType: "arraybuffer",
+      });
+      let blob = new Blob([response.data], {
+        type: response.headers["content-type"],
+      });
+      let img_url = URL.createObjectURL(blob);
+      const $modalBody = $(".modal-body");
+      const map_img = document.createElement("img");
+      map_img.src = img_url;
+      $modalBody.html(map_img);
+    });
+}
+
+// Event listeners
 $body.on("click", ".kudos", handleKudos);
 $body.on("click", ".follow-btn", handleFollow);
 $body.on("click", "#add-waypoint", handleWaypoint);
 $body.on("click", ".fa-trash", removeWaypoint);
+$body.on("click", "#generate-map-btn", generateMap);

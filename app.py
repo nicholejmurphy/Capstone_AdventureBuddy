@@ -3,9 +3,11 @@ import os
 from flask import Flask, render_template, request, flash, redirect, session, g, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
+import requests
 
 from forms import UserSignUpForm, UserLoginForm, UserUpdateForm, AdventureForm
 from models import db, connect_db, User, Adventure, Waypoint, Address, Kudos
+from keys import MQ_KEY
 
 CURR_USER_ID = "curr_user"
 
@@ -419,3 +421,34 @@ def remove_waypoint(wp_id):
     db.session.commit()
 
     return jsonify(complete=True)
+
+
+def str_locations(waypoints):
+    """Create a string of waypoints in Mapquest API request format."""
+
+    wp_list = []
+
+    for wp in waypoints:
+        location = f"{wp.lat},{wp.long}|marker-sm-{wp.color}"
+        wp_list.append(location)
+
+    locations = "||".join(wp_list)
+
+    return locations
+
+
+@app.route('/adventures/<int:adv_id>/map')
+def generate_map(adv_id):
+    """Retrieve map from Mapquest API and return png img."""
+
+    if not g.user:
+        flash("Unathorized access. You must be logged in to view.", "danger")
+        return redirect("/login")
+
+    adv = Adventure.query.get_or_404(adv_id)
+
+    locations = str_locations(adv.waypoints)
+
+    url = f"https://www.mapquestapi.com/staticmap/v5/map?key={MQ_KEY}&locations={locations}&size=600,600@2x&type=hyb&zoom=15"
+
+    return jsonify(url=url)
