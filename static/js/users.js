@@ -125,23 +125,19 @@ async function removeWaypoint(evt) {
   $(evt.target).parent().parent().remove();
 }
 
-async function generateMap(evt) {
+async function generateMapImg(resp) {
+  const r = await axios.get(resp.data["url"]);
+  const img = btoa(r);
+  const img_tag = `<img src="data:image/jpg;base64,${img}" class="img-fluid"/>`;
+  const $modalBody = $(".modal-body");
+  $($modalBody).children().remove();
+  $modalBody.append(img_tag);
+}
+
+async function generateMapURL(evt) {
   const adv_id = $(evt.target).attr("data-adv-id");
-  const resp = await axios
-    .get(`${BASE_URL}/adventures/${adv_id}/map`)
-    .then((response) => {
-      const r = axios.get(response.data["url"], {
-        responseType: "arraybuffer",
-      });
-      let blob = new Blob([response.data], {
-        type: response.headers["content-type"],
-      });
-      let img_url = URL.createObjectURL(blob);
-      const $modalBody = $(".modal-body");
-      const map_img = document.createElement("img");
-      map_img.src = img_url;
-      $modalBody.html(map_img);
-    });
+  const resp = await axios.get(`${BASE_URL}/adventures/${adv_id}/map`);
+  generateMapImg(resp);
 }
 
 // Event listeners
@@ -149,4 +145,4 @@ $body.on("click", ".kudos", handleKudos);
 $body.on("click", ".follow-btn", handleFollow);
 $body.on("click", "#add-waypoint", handleWaypoint);
 $body.on("click", ".fa-trash", removeWaypoint);
-$body.on("click", "#generate-map-btn", generateMap);
+$body.on("click", "#generate-map-btn", generateMapURL);

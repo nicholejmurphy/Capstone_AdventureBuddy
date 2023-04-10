@@ -6,9 +6,9 @@
   <h2 class="text-light mb-2">
     Log your adventures. | Share with Friends. | Stay found.
   </h2>
-  <hr class="bg-secondary mx-5" />
-  <p class="lead text-light mb-4">
-    "There is no time to be bored in a world as beautiful as this."
+  <hr class="bg-secondary mx-5 my-3" />
+  <p class="lead shadow rounded bg-secondary w-50 p-2 text-light m-auto">
+    <em> "There is no time to be bored in a world as beautiful as this."</em>
   </p>
   <div class="container my-2">
     {% for category, message in get_flashed_messages(with_categories=True) %}
@@ -17,11 +17,11 @@
     </div>
     {% endfor %}
   </div>
-  <div class="my-3">
-    <a href="/login" class="btn btn-success btn-lg px-5 mr-2" role="button">
+  <div class="my-4">
+    <a href="/login" class="btn btn-primary btn-lg px-5 mr-2" role="button">
       Login</a
     >
-    <a href="/signup" class="btn btn-primary btn-lg px-5" role="button">
+    <a href="/signup" class="btn btn-success btn-lg px-5" role="button">
       SignUp
     </a>
   </div>
