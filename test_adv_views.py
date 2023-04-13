@@ -5,7 +5,7 @@ from app import app, CURR_USER_ID
 import os
 from unittest import TestCase
 
-from models import db, connect_db, User, Follows, Waypoint, Adventure, AdventuresWaypoints, Kudos
+from models import db, connect_db, User, Waypoint, Adventure
 
 os.environ['DATABASE_URL'] = "postgresql:///out-there-test"
 
@@ -26,22 +26,73 @@ class AdventureViewTestCase(TestCase):
 
         self.client = app.test_client()
 
-        self.testuser = User.signup(username="nickmurph", password="user1",
-                                    first_name="Nicky", last_name="Murphy")
+        self.testuser1 = User.signup(
+            username="user1", password="user1", first_name="Nicky", last_name="Murphy")
+        self.testuser2 = User.signup(
+            username="user2", password="user1", first_name="Kyle", last_name="Murphy")
 
+        db.session.commit()
+
+        self.testadv1 = Adventure(title="My first Adventure!", activity="Hiking", departure_date="07-18-2023", departure_time="07:30",
+                                  return_date="07-18-2023", return_time="12:00", notes="It's going to be great!", user_id=self.testuser1.id, location="Asheville, NC")
+        self.testadv2 = Adventure(title="My second Adventure!", activity="Swimming", departure_date="07-18-2023", departure_time="07:30",
+                                  return_date="07-18-2023", return_time="12:00", notes="It's going to be great!", user_id=self.testuser1.id, location="Asheville, NC")
+        db.session.add_all([self.testadv1, self.testadv2])
         db.session.commit()
 
     def test_show_adventure(self):
         """Should show adventure details."""
 
+        with self.client as client:
+            with client.session_transaction() as session:
+                session[CURR_USER_ID] = self.testuser1.id
+
+            resp = client.get(f'/adventures/{self.testadv1.id}')
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn(self.testadv1.title, html)
+
     def test_create_adventure(self):
         """Should create adventure and show details page."""
+
+        with self.client as client:
+            with client.session_transaction() as session:
+                session[CURR_USER_ID] = self.testuser1.id
+
+            resp = client.get('/adventures/create')
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn('Create Your Next Adventure', html)
 
     def test_update_adventure(self):
         """Should update adventure from form data and show new details page."""
 
+        with self.client as client:
+            with client.session_transaction() as session:
+                session[CURR_USER_ID] = self.testuser1.id
+
+            resp = client.get(f'/adventures/{self.testadv1.id}/update')
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn(self.testadv1.title, html)
+
     def test_adventures_destroy(self):
-        """Should remove adventure from user and rediretc to profile."""
+        """Should remove adventure from user and redirect to profile."""
+
+        with self.client as client:
+            with client.session_transaction() as session:
+                session[CURR_USER_ID] = self.testuser1.id
+
+            resp = client.post(
+                f'/adventures/{self.testadv1.id}/delete', follow_redirects=True)
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn('My Adventure Log', html)
+            self.assertNotIn(self.testadv1.title, html)
 
     def test_give_kudos(self):
         """Add adv to kudos of user."""
