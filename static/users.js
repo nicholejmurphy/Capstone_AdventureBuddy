@@ -123,7 +123,6 @@ async function removeWaypoint(evt) {
 async function generateMapImg(url) {
   const img = document.createElement("img");
   img.src = url;
-  // img.srcset = url;
   const $modalBody = $(".modal-body");
   $($modalBody).children().remove();
   $modalBody.append(img);

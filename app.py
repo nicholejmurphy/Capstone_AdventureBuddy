@@ -429,7 +429,7 @@ def str_locations(waypoints):
     wp_list = []
 
     for wp in waypoints:
-        location = f"{wp.lat},{wp.long}|marker-sm-{wp.color}"
+        location = f"{wp.lat},{wp.long}|via-sm-{wp.color}"
         wp_list.append(location)
 
     locations = "||".join(wp_list)
@@ -449,6 +449,6 @@ def generate_map(adv_id):
 
     locations = str_locations(adv.waypoints)
 
-    url = f"https://www.mapquestapi.com/staticmap/v5/map?key={MQ_KEY}&locations={locations}&size=600,600@2x&type=hyb&zoom=15"
+    url = f"https://www.mapquestapi.com/staticmap/v5/map?key={MQ_KEY}&locations={locations}&size=200,200@2x&type=hyb"
 
     return url
