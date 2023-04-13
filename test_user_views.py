@@ -55,17 +55,63 @@ class UserViewTestCase(TestCase):
             self.assertEqual(resp.status_code, 200)
             self.assertIn('Adventure Feed', html)
 
-    # def test_login(self):
-    #     """If valid user, does it show home page?"""
+    def test_login(self):
+        """If valid user, does it show home page?"""
 
-    # def test_login(self):
-    #     """Should redirect to welcome page?"""
+        with self.client as client:
 
-    # def test_search_users(self):
-    #     """Should show list of users"""
+            resp = client.get('/login')
+            html = resp.get_data(as_text=True)
 
-    # def test_show_profile(self):
-    #     """Should show user's profile."""
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn('Login', html)
+
+    def test_logout(self):
+        """If valid user, does it show home page?"""
+
+        with self.client as client:
+            resp = client.get('/logout', follow_redirects=True)
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn('Successfully logged out.', html)
+
+    def test_signup(self):
+        """Should redirect to welcome page?"""
+
+        with self.client as client:
+
+            resp = client.get('/signup')
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn('SignUp', html)
+
+    def test_search_users(self):
+        """Should show list of users"""
+
+        with self.client as client:
+            with client.session_transaction() as session:
+                session[CURR_USER_ID] = self.testuser1.id
+
+            resp = client.get('/users')
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn('Searched users for', html)
+
+    def test_show_profile(self):
+        """Should show user's profile."""
+
+        with self.client as client:
+            with client.session_transaction() as session:
+                session[CURR_USER_ID] = self.testuser1.id
+
+            resp = client.get(f'/users/{self.testuser1.id}')
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn('My Adventure Log', html)
 
     # def test_update_user(self):
     #     """Should update user information from form data."""
@@ -75,6 +121,19 @@ class UserViewTestCase(TestCase):
 
     # def test_show_following(self):
     #     """Should show all users logged in user is following."""
+
+        # with self.client as client:
+        #     with client.session_transaction() as session:
+        #         session[CURR_USER_ID] = self.testuser1.id
+
+        #     self.testuser1.following.append(self.testuser2)
+        #     db.session.commit()
+
+        #     resp = client.get('/')
+        #     html = resp.get_data(as_text=True)
+
+        #     self.assertEqual(resp.status_code, 200)
+        #     self.assertIn('Adventure Feed', html)
 
     # def test_show_followers(self):
     #     """Should show all users logged in user is followed by."""
