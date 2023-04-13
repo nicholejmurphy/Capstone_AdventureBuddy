@@ -4,7 +4,7 @@ from app import app, CURR_USER_ID
 import os
 from unittest import TestCase
 
-from models import db, connect_db, User, Follows, Waypoint, Adventure, AdventuresWaypoints, Kudos
+from models import db, connect_db, User, Adventure
 
 os.environ['DATABASE_URL'] = "postgresql:///out-there-test"
 
@@ -20,7 +20,6 @@ class UserViewTestCase(TestCase):
         """Create test client, add sample data."""
 
         User.query.delete()
-        Waypoint.query.delete()
         Adventure.query.delete()
 
         self.client = app.test_client()
@@ -34,12 +33,7 @@ class UserViewTestCase(TestCase):
 
         self.testadv = Adventure(title="My first Adventure!", activity="Hiking", departure_date="07-18-2023", departure_time="07:30",
                                  return_date="07-18-2023", return_time="12:00", notes="It's going to be great!", user_id=self.testuser1.id, location="Asheville, NC")
-        self.testwp = Waypoint(lat=35.5950, long=-82.5514,
-                               color="blue", name="Basecamp")
 
-        db.session.commit()
-
-        self.testadv.waypoints.append(self.testwp)
         db.session.commit()
 
     def test_home_page(self):
@@ -170,9 +164,3 @@ class UserViewTestCase(TestCase):
 
             self.assertEqual(resp.status_code, 200)
             self.assertIn(self.testuser2.username, html)
-
-    # def test_add_follow(self):
-    #     """Should add user_id to users follow list."""
-
-    # def test_remove_follow(self):
-    #     """Should remove user_id to users follow list."""
