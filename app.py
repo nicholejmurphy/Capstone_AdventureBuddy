@@ -6,7 +6,7 @@ from sqlalchemy.exc import IntegrityError
 import requests
 
 from forms import UserSignUpForm, UserLoginForm, UserUpdateForm, AdventureForm
-from models import db, connect_db, User, Adventure, Waypoint, Address, Kudos
+from models import db, connect_db, User, Adventure, Waypoint, Kudos
 from keys import MQ_KEY
 
 CURR_USER_ID = "curr_user"

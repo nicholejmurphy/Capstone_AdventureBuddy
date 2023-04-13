@@ -1,5 +1,5 @@
 from app import db
-from models import User, Follows, Adventure, Waypoint, Address
+from models import User, Follows, Adventure, Waypoint
 
 db.drop_all()
 db.create_all()
