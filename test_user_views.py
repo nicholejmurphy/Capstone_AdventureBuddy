@@ -113,30 +113,63 @@ class UserViewTestCase(TestCase):
             self.assertEqual(resp.status_code, 200)
             self.assertIn('My Adventure Log', html)
 
-    # def test_update_user(self):
-    #     """Should update user information from form data."""
+    def test_update_user(self):
+        """Should update user information from form data."""
 
-    # def test_delete_user(self):
-    #     """Should remove user and return to welcome page."""
+        with self.client as client:
+            with client.session_transaction() as session:
+                session[CURR_USER_ID] = self.testuser1.id
 
-    # def test_show_following(self):
-    #     """Should show all users logged in user is following."""
+            resp = client.get(f'/users/update')
+            html = resp.get_data(as_text=True)
 
-        # with self.client as client:
-        #     with client.session_transaction() as session:
-        #         session[CURR_USER_ID] = self.testuser1.id
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn(f'@{self.testuser1.username}', html)
 
-        #     self.testuser1.following.append(self.testuser2)
-        #     db.session.commit()
+    def test_delete_user(self):
+        """Should remove user and return to welcome page."""
 
-        #     resp = client.get('/')
-        #     html = resp.get_data(as_text=True)
+        with self.client as client:
+            with client.session_transaction() as session:
+                session[CURR_USER_ID] = self.testuser1.id
 
-        #     self.assertEqual(resp.status_code, 200)
-        #     self.assertIn('Adventure Feed', html)
+            resp = client.get(f'/users/update')
+            html = resp.get_data(as_text=True)
 
-    # def test_show_followers(self):
-    #     """Should show all users logged in user is followed by."""
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn(f'@{self.testuser1.username}', html)
+
+    def test_show_following(self):
+        """Should show all users logged in user is following."""
+
+        with self.client as client:
+            with client.session_transaction() as session:
+                session[CURR_USER_ID] = self.testuser1.id
+
+            self.testuser1.following.append(self.testuser2)
+            db.session.commit()
+
+            resp = client.get(f'/users/{self.testuser1.id}/following')
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn(self.testuser2.username, html)
+
+    def test_show_followers(self):
+        """Should show all users logged in user is followed by."""
+
+        with self.client as client:
+            with client.session_transaction() as session:
+                session[CURR_USER_ID] = self.testuser1.id
+
+            self.testuser1.followers.append(self.testuser2)
+            db.session.commit()
+
+            resp = client.get(f'/users/{self.testuser1.id}/followers')
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn(self.testuser2.username, html)
 
     # def test_add_follow(self):
     #     """Should add user_id to users follow list."""
