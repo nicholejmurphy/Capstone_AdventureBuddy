@@ -39,11 +39,21 @@ class UserViewTestCase(TestCase):
 
         db.session.commit()
 
-        self.testadv.append(self.testwp)
+        self.testadv.waypoints.append(self.testwp)
         db.session.commit()
 
     def test_home_page(self):
-        """Does page show homepage if user is logged in or welcome page if user is not logged in?"""
+        """Does page show homepage if user is logged in?"""
+
+        with self.client as client:
+            with client.session_transaction() as session:
+                session[CURR_USER_ID] = self.testuser1.id
+
+            resp = client.get('/')
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn('Adventure Feed', html)
 
     # def test_login(self):
     #     """If valid user, does it show home page?"""
