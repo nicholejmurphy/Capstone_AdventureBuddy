@@ -31,10 +31,7 @@ async function handleFollow(evt) {
 
 async function handleKudos(evt) {
   // Give kudos on adventure and update button style.
-  console.log("in handle kudos");
   if ($(evt.target).attr("data-kudos") === "False") {
-    console.log("in give kudos");
-
     const adv_id = $(evt.target).attr("data-id");
     const resp = await axios.post(`${BASE_URL}/kudos/${adv_id}/give`);
 
@@ -43,8 +40,6 @@ async function handleKudos(evt) {
 
     // Remove kudos and update button style.
   } else if ($(evt.target).attr("data-kudos") === "True") {
-    console.log("in remove kudos");
-
     const adv_id = $(evt.target).attr("data-id");
     const resp = await axios.post(`${BASE_URL}/kudos/${adv_id}/remove`);
 
@@ -126,15 +121,18 @@ async function removeWaypoint(evt) {
 }
 
 async function generateMapImg(resp) {
-  const r = await axios.get(resp.data["url"]);
-  const img = btoa(r);
-  const img_tag = `<img src="data:image/jpg;base64,${img}" class="img-fluid"/>`;
+  const url = resp.data["url"];
+  const img = document.createElement("img");
+  img.src = url;
+  // img.srcset = url;
   const $modalBody = $(".modal-body");
   $($modalBody).children().remove();
-  $modalBody.append(img_tag);
+  $modalBody.append(img);
 }
 
 async function generateMapURL(evt) {
+  // Calls to local api to get waypoint data to create Mapquest request.
+  evt.preventDefault();
   const adv_id = $(evt.target).attr("data-adv-id");
   const resp = await axios.get(`${BASE_URL}/adventures/${adv_id}/map`);
   generateMapImg(resp);
