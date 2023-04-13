@@ -120,8 +120,7 @@ async function removeWaypoint(evt) {
   $(evt.target).parent().parent().remove();
 }
 
-async function generateMapImg(resp) {
-  const url = resp.data["url"];
+async function generateMapImg(url) {
   const img = document.createElement("img");
   img.src = url;
   // img.srcset = url;
@@ -135,7 +134,7 @@ async function generateMapURL(evt) {
   evt.preventDefault();
   const adv_id = $(evt.target).attr("data-adv-id");
   const resp = await axios.get(`${BASE_URL}/adventures/${adv_id}/map`);
-  generateMapImg(resp);
+  generateMapImg(resp.data);
 }
 
 // Event listeners
