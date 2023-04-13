@@ -120,15 +120,3 @@ class AdventureViewTestCase(TestCase):
 
             self.assertEqual(resp.status_code, 200)
             self.assertNotIn(self.testadv1, self.testuser1.kudos)
-
-    def test_add_waypoint(self):
-        """Adds waypoint to adv"""
-
-    def test_remove_waypoint(self):
-        """Removes waypoint from adv"""
-
-    def test_str_locations(self):
-        """Generates a contatenated str of all adv waypoints"""
-
-    def test_generate_map(self):
-        """Creates a url for mapquest request"""

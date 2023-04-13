@@ -96,7 +96,7 @@ a11.waypoints.append(w11)
 
 db.session.commit()
 
-address = Address(nickname="Nicky", user_id=1)
+# address = Address(nickname="Nicky", user_id=1)
 
-db.session.add(address)
-db.session.commit()
+# db.session.add(address)
+# db.session.commit()

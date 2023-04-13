@@ -452,4 +452,3 @@ def generate_map(adv_id):
     url = f"https://www.mapquestapi.com/staticmap/v5/map?key={MQ_KEY}&locations={locations}&size=600,600@2x&type=hyb&zoom=15"
 
     return url
-
