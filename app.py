@@ -439,7 +439,7 @@ def str_locations(waypoints):
 
 @app.route('/adventures/<int:adv_id>/map')
 def generate_map(adv_id):
-    """Retrieve map from Mapquest API and return png img."""
+    """Create request for Mapquest API and return url."""
 
     if not g.user:
         flash("Unathorized access. You must be logged in to view.", "danger")
