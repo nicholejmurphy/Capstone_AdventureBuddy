@@ -97,8 +97,29 @@ class AdventureViewTestCase(TestCase):
     def test_give_kudos(self):
         """Add adv to kudos of user."""
 
+        with self.client as client:
+            with client.session_transaction() as session:
+                session[CURR_USER_ID] = self.testuser1.id
+
+            resp = client.post(f'/kudos/{self.testadv1.id}/give')
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn(self.testadv1, self.testuser1.kudos)
+
     def test_remove_kudos(self):
         """Remove adv from kudos of user."""
+
+        with self.client as client:
+            with client.session_transaction() as session:
+                session[CURR_USER_ID] = self.testuser1.id
+
+            self.testuser1.kudos.append(self.testadv1)
+            db.session.commit()
+
+            resp = client.post(f'/kudos/{self.testadv1.id}/remove')
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertNotIn(self.testadv1, self.testuser1.kudos)
 
     def test_add_waypoint(self):
         """Adds waypoint to adv"""
