@@ -1,5 +1,5 @@
 # Capstone1 Proposal
-![OutThere Logo](/MD_images/OutThere_Logo.png)
+![OutThere Logo](OutThere_Logo.png)
 
 >Log your adventures. Share with friends. Stay found.
 
@@ -14,13 +14,13 @@
 Adventure comes in many forms. This could look like a walk in the park, a kayak run on a local river, or canyoneering in some of the deepest canyons in the West. If you enjoy recreating in spaces with limited phone service, OutThere is for you!
 
 ### Data Usage:
-![Database Map](/MD_images/database_mapping.png)
+![Database Map](database_mapping.png)
 Here is a basic outline of the different types of data OutThere will be accesssing:
 1. User Data - this model will store basic user information that will be saved to a user's account for authentication and authorization.
 2. Adventure Data - this model will store trip information that can be duplicated, updated, or deleted by the user. These trips can be reused when creating an itinerary to share with friends.
 3. Waypoint Data - This data will be for all saved waypoints associated with a given adventure. These pieces are used to concat into a sting including all waypoints that is sent throughthe api request.
 
-![Mapquest Logo](/MD_images/apis.png)
+![Mapquest Logo](apis.png)
 
 ### The Creative Approach
 This app will create a user friendly interface where a user can login or register an account to save their data. The user can view their profile that includes all of their past trips and their own address book. There will be CRUD functionality with the user and their trips.
