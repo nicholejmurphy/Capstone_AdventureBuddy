@@ -64,7 +64,12 @@
     </div>
     <h1 class="h4">Adventure Feed</h1>
     <hr />
-    {% for adv in advs %}
+    {% if advs | length == 0 %}
+    <div class="alert alert-success text-center shadow my-3" role="alert">
+      Empty feed? Follow other users or create your own adventure to see posts
+      here!
+    </div>
+    {% endif %} {% for adv in advs %}
     <div class="card my-2 w-75 shadow mx-auto mb-3">
       <div style="height: 15rem">
         <img

@@ -36,3 +36,6 @@ Additional features I would like to add to the application:
 - Including the Twilio API to allow users to send SMS messages to friends off the app when tey head out for their adventure. this would give their friend details about their trip as well as an expected return time for when to check back in to ensure they made it home safely. 
 - A check-in feature allowing users to alert friends that they have safetly returned home. This could be seen on the adventure in the news feed. It would be highlited in red if the user has not checked back in yet. If this alert is not addressed, the user's friends will be reminded that their friend has not yet checked in from their trip and they should follow up with them.
 - Allow a "save adventure" feature that could save other's adventures to you favorites list - maybe a trip you hope to do in the future!
+
+### How to get started
+![Set Up Instructions](/MD_images/app_setup.png)

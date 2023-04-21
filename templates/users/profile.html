@@ -68,7 +68,12 @@
     </div>
     <h1 class="h4">My Adventure Log</h1>
     <hr />
-    {% for adv in user.adventures %}
+    {% if advs | length == 0 %}
+    <div class="alert alert-success text-center shadow my-3" role="alert">
+      Your adventure log is empty. "Create your next adventure" to get your log
+      started!
+    </div>
+    {% endif %} {% for adv in user.adventures %}
     <div class="card my-2 w-75 shadow mx-auto mb-3">
       <div style="height: 15rem">
         <img

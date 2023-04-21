@@ -193,7 +193,7 @@ def update_user():
     return render_template('users/update.html', form=form)
 
 
-@app.route("/user/delete", methods=["POST"])
+@app.route("/users/delete", methods=["POST"])
 def delete_user():
 
     if not g.user:

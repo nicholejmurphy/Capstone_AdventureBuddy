@@ -53,7 +53,12 @@
   <div class="container w-50 my-4 p-4 ml-5 d-inline rounded shadow bg-light">
     <h4>Followers</h4>
     <hr />
-    {% for u in user.followers %}
+    {% if user.followers | length == 0 %}
+    <div class="alert alert-success text-center shadow my-3" role="alert">
+      You have no followers yet. Search for friends in the search bar above to
+      get connected!
+    </div>
+    {% endif %} {% for u in user.followers %}
     <div class="mb-4 row">
       <div class="col-2">
         <img
