@@ -4,6 +4,7 @@ from flask import Flask, render_template, request, flash, redirect, session, g, 
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 import requests
+from flask_cors import CORS
 
 from forms import UserSignUpForm, UserLoginForm, UserUpdateForm, AdventureForm
 from models import db, connect_db, User, Adventure, Waypoint, Kudos
@@ -12,6 +13,7 @@ from keys import MQ_KEY
 CURR_USER_ID = "curr_user"
 
 app = Flask(__name__)
+CORS(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = (
     os.environ.get('DATABASE_URL', 'postgresql:///out-there')).replace("postgres://", "postgresql://", 1)

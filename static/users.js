@@ -84,7 +84,6 @@ async function handleWaypoint(evt) {
       json,
       { headers: { "Content-Type": "application/json" } }
     );
-    console.log(resp);
 
     // Add html.
     const html = `
@@ -134,6 +133,7 @@ async function generateMapURL(evt) {
   evt.preventDefault();
   const adv_id = $(evt.target).attr("data-adv-id");
   const resp = await axios.get(`${BASE_URL}/adventures/${adv_id}/map`);
+  console.log(resp.data);
   generateMapImg(resp.data);
 }
 
