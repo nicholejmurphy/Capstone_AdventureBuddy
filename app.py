@@ -54,9 +54,6 @@ def add_user_to_global():
 
     if CURR_USER_ID in session:
         g.user = User.query.get(session[CURR_USER_ID])
-        print("**********************")
-        print(g.user)
-        print("**********************")
     else:
         g.user = None
 
@@ -391,7 +388,9 @@ def remove_kudos(adv_id):
 @app.route('/adventures/<int:adv_id>/waypoint/add', methods=["POST"])
 def add_waypoint(adv_id):
     """Add a waypoint to an adventure."""
-
+    print("**********************")
+    print("Inside add waypoint.")
+    print("**********************")
     if not g.user:
         flash("Unathorized access. You must be logged in to view.", "danger")
         return redirect("/login")
