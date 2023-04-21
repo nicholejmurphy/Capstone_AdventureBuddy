@@ -82,8 +82,9 @@ async function handleWaypoint(evt) {
     const resp = await axios.post(
       `${BASE_URL}/adventures/${adv_id}/waypoint/add`,
       json,
-      { headers: { "Content-Type": "application/json", Origin: null } }
+      { headers: { "Content-Type": "application/json" } }
     );
+    console.log(resp);
 
     // Add html.
     const html = `
