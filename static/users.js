@@ -84,6 +84,7 @@ async function handleWaypoint(evt) {
       json,
       { headers: { "Content-Type": "application/json" } }
     );
+    console.log(resp);
 
     // Add html.
     const html = `
