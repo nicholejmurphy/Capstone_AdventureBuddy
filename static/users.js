@@ -2,7 +2,7 @@
 
 const $body = $("body");
 
-const BASE_URL = "http://127.0.0.1:5000";
+const BASE_URL = window.location.origin;
 const followBtnClass = "btn btn-primary follow-btn follow";
 const unfollowBtnClass = "btn btn-outline-primary follow-btn unfollow";
 const giveKudosBtnClass =
@@ -86,7 +86,7 @@ async function handleWaypoint(evt) {
     );
     console.log(resp);
 
-    // Add html.
+    // Adds html.
     const html = `
     <div class="row ml-2">
       <div class="col-1">
