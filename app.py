@@ -407,6 +407,9 @@ def add_waypoint(adv_id):
     adv.waypoints.append(wp)
     db.session.commit()
 
+    print("**********************")
+    print(f"Waypoint ID: {wp.id}")
+    print("**********************")
     return jsonify(id=wp.id)
 
 
