@@ -68,7 +68,7 @@
     </div>
     <h1 class="h4">My Adventure Log</h1>
     <hr />
-    {% if advs | length == 0 %}
+    {% if user.adventures | length == 0 %}
     <div class="alert alert-success text-center shadow my-3" role="alert">
       Your adventure log is empty. "Create your next adventure" to get your log
       started!
