@@ -73,11 +73,12 @@ def do_logout():
 @app.route('/signup', methods=["GET", "POST"])
 def signup():
     """Handle signup."""
-
+    print("in signup")
     form = UserSignUpForm()
-
+    print("before form validate")
     if form.validate_on_submit():
         try:
+            print("in form validate")
             user = User.signup(username=form.username.data, first_name=form.first_name.data,
                                last_name=form.last_name.data, password=form.password.data)
             db.session.commit()
