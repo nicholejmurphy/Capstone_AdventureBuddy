@@ -97,8 +97,10 @@ def login():
     """Handle user  login."""
     print("in login route")
     form = UserLoginForm()
+    print("Before form validate")
 
     if form.validate_on_submit():
+        print(form.errors)
         user = User.authenticate(form.username.data, form.password.data)
         print(user)
         if user:
