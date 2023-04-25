@@ -60,7 +60,7 @@ def add_user_to_global():
 
 def do_login(user):
     """Log user in."""
-
+    print("Setting session CURR_USER_ID")
     session[CURR_USER_ID] = user.id
 
 
@@ -98,10 +98,13 @@ def login():
     form = UserLoginForm()
 
     if form.validate_on_submit():
+        print("******************")
+        print("Validating form")
         user = User.authenticate(form.username.data, form.password.data)
-
+        print(user)
         if user:
             do_login(user)
+            print("REDIRECTING TO HOME")
             flash(f"Welcome {user.first_name}!", "success")
             return redirect('/')
 
