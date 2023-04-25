@@ -94,17 +94,14 @@ def signup():
 @app.route('/login', methods=["GET", "POST"])
 def login():
     """Handle user  login."""
-
+    print("in login route")
     form = UserLoginForm()
 
     if form.validate_on_submit():
-        print("******************")
-        print("Validating form")
         user = User.authenticate(form.username.data, form.password.data)
         print(user)
         if user:
             do_login(user)
-            print("REDIRECTING TO HOME")
             flash(f"Welcome {user.first_name}!", "success")
             return redirect('/')
 
