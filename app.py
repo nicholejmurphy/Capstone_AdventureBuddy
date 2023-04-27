@@ -102,14 +102,14 @@ def login():
     if form.validate_on_submit():
 
         user = User.authenticate(form.username.data, form.password.data)
-        print(user)
+        print("User:", user)
         if user:
             do_login(user)
             flash(f"Welcome {user.first_name}!", "success")
             return redirect('/')
 
         flash("Invalid username or password.", "danger")
-    print(form.errors)
+    print("Form Errors:", form.errors)
     return render_template("users/login.html", form=form)
 
 
