@@ -70,8 +70,10 @@
     <hr />
     {% if user.adventures | length == 0 %}
     <div class="alert alert-success text-center shadow my-3" role="alert">
-      Your adventure log is empty. "Create your next adventure" to get your log
-      started!
+      Welcome to OutThere! We are so glad you are here.
+      <a href="/users">Follow other users</a> or
+      <a href="/adventures/create">create your next adventure</a> to see your
+      adventure feed grow!
     </div>
     {% endif %} {% for adv in user.adventures %}
     <div class="card my-2 w-75 shadow mx-auto mb-3">
